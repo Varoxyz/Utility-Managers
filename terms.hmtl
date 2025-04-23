@@ -426,6 +426,59 @@
             position: relative;
         }
 
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 12px 30px;
+            background: var(--white);
+            color: var(--primary);
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+            transition: var(--transition);
+            box-shadow: var(--shadow);
+            margin: 10px;
+        }
+
+        .btn i {
+            margin-right: 8px;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .btn-light {
+            background: var(--white);
+            color: var(--primary);
+        }
+
+        .btn-light:hover {
+            background: var(--light);
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: var(--white);
+        }
+
+        .btn-primary:hover {
+            background: var(--primary-dark);
+        }
+
+        .btn-container {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-top: 30px;
+        }
+
         /* Footer */
         footer {
             background: var(--dark);
@@ -511,36 +564,6 @@
             text-align: center;
             padding-top: 2rem;
             border-top: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .btn {
-            display: inline-block;
-            padding: 12px 30px;
-            background: var(--primary);
-            color: var(--white);
-            text-decoration: none;
-            border-radius: 50px;
-            font-weight: 600;
-            text-transform: uppercase;
-            font-size: 0.9rem;
-            letter-spacing: 1px;
-            transition: var(--transition);
-            box-shadow: var(--shadow);
-        }
-
-        .btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-            background: var(--primary-dark);
-        }
-
-        .btn-light {
-            background: var(--white);
-            color: var(--primary);
-        }
-
-        .btn-light:hover {
-            background: var(--light);
         }
 
         /* Back to top button */
@@ -723,7 +746,7 @@
                 flex-wrap: wrap;
                 justify-content: center;
             }
-
+            
             .quick-access {
                 left: 20px;
                 bottom: 20px;
@@ -793,7 +816,7 @@
                         </div>
                     </div>
 
-                    <div class="terms-section">
+                    <div class="terms-section" id="usage">
                         <h3><i class="fas fa-check-circle"></i> Usage</h3>
                         <div class="terms-content">
                             <ul>
@@ -802,54 +825,86 @@
                                 <li>Misuse, abuse, or any behavior that violates these terms may result in removal of access to the bots.</li>
                             </ul>
                         </div>
+                        <div class="btn-container">
+                            <a href="#data" class="btn btn-primary"><i class="fas fa-arrow-down"></i> Read About Data Usage</a>
+                            <a href="index.html" class="btn"><i class="fas fa-home"></i> Back to Home</a>
+                        </div>
                     </div>
 
-                    <div class="terms-section">
+                    <div class="terms-section" id="access">
                         <h3><i class="fas fa-server"></i> Access & Availability</h3>
                         <div class="terms-content">
                             <ul>
                                 <li>Access to Utility Managers bots may be modified, restricted, or revoked at any time without prior notice.</li>
                                 <li>We do not guarantee uninterrupted access, uptime, or availability of any feature.</li>
+                                <li>Technical issues may occasionally impact our services and we will work to resolve these in a timely manner.</li>
+                                <li>We reserve the right to update, modify or discontinue features as needed for technical or other reasons.</li>
                             </ul>
+                        </div>
+                        <div class="btn-container">
+                            <a href="#data" class="btn btn-primary"><i class="fas fa-database"></i> View Data Policy</a>
+                            <a href="#disclaimer" class="btn"><i class="fas fa-shield-alt"></i> View Disclaimer</a>
                         </div>
                     </div>
 
-                    <div class="terms-section">
+                    <div class="terms-section" id="data">
                         <h3><i class="fas fa-database"></i> Data & Privacy</h3>
                         <div class="terms-content">
                             <ul>
                                 <li>The bots do not collect or store personal data beyond what is necessary for core functionality.</li>
                                 <li>Configuration settings or server-specific data may be stored temporarily for performance and support purposes.</li>
                                 <li>No data is sold or shared with third parties.</li>
+                                <li>All data is automatically deleted when you remove the bot from your server.</li>
+                                <li>You have the right to request deletion of your data at any time.</li>
                             </ul>
                             <p>For more details, please see our <a href="privacy.html">Privacy Policy</a>.</p>
                         </div>
+                        <div class="btn-container">
+                            <a href="privacy.html" class="btn btn-primary"><i class="fas fa-file-alt"></i> View Privacy Policy</a>
+                            <a href="#disclaimer" class="btn"><i class="fas fa-arrow-down"></i> Continue Reading</a>
+                        </div>
                     </div>
 
-                    <div class="terms-section">
+                    <div class="terms-section" id="disclaimer">
                         <h3><i class="fas fa-shield-alt"></i> Disclaimer & Liability</h3>
                         <div class="terms-content">
                             <ul>
                                 <li>Bots are provided "as-is" and "as-available," without warranties of any kind, express or implied, including fitness for a particular purpose or uninterrupted service.</li>
                                 <li>The owner(s), developer(s), and maintainers are not liable for any damages or consequences resulting from the use, misuse, or inability to use the bot.</li>
                                 <li>All actions performed through the bot are the sole responsibility of the user or server administrator.</li>
+                                <li>We recommend testing any features that may affect multiple users in a controlled environment first.</li>
+                                <li>Always make sure you have proper backups of critical data before performing mass operations.</li>
                             </ul>
+                        </div>
+                        <div class="btn-container">
+                            <a href="#changes" class="btn btn-primary"><i class="fas fa-arrow-down"></i> Next Section</a>
+                            <a href="#data" class="btn"><i class="fas fa-arrow-up"></i> Previous Section</a>
                         </div>
                     </div>
 
-                    <div class="terms-section">
+                    <div class="terms-section" id="changes">
                         <h3><i class="fas fa-edit"></i> Changes to These Terms</h3>
                         <div class="terms-content">
                             <ul>
                                 <li>These Terms of Service may be updated at any time. Continued use of the bots constitutes acceptance of any changes.</li>
+                                <li>Significant changes to these terms will be communicated through our support server when possible.</li>
+                                <li>It is your responsibility to periodically review these terms for any updates or changes.</li>
                             </ul>
+                        </div>
+                        <div class="btn-container">
+                            <a href="#usage" class="btn btn-primary"><i class="fas fa-arrow-up"></i> Back to Top</a>
+                            <a href="index.html" class="btn"><i class="fas fa-home"></i> Return to Home</a>
                         </div>
                     </div>
 
                     <div class="cta-section">
                         <h3>Have Questions?</h3>
                         <p>If you have any questions about these Terms of Service, please contact us through our support channels.</p>
-                        <a href="https://discord.gg/Wc3tTz5UzW" class="btn btn-light" target="_blank">Join Support Server</a>
+                        <div class="btn-container">
+                            <a href="https://discord.gg/Wc3tTz5UzW" class="btn btn-light" target="_blank"><i class="fas fa-headset"></i> Join Support Server</a>
+                            <a href="privacy.html" class="btn btn-light"><i class="fas fa-shield-alt"></i> View Privacy Policy</a>
+                            <a href="index.html" class="btn btn-light"><i class="fas fa-home"></i> Return to Home</a>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -946,15 +1001,26 @@
             }
         });
         
-        // Smooth scroll
+        // Smooth scroll with offset for fixed header
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 if (this.getAttribute('href') !== "#") {
                     e.preventDefault();
                     
-                    document.querySelector(this.getAttribute('href')).scrollIntoView({
-                        behavior: 'smooth'
-                    });
+                    const targetId = this.getAttribute('href').substring(1);
+                    const targetElement = document.getElementById(targetId);
+                    
+                    if (targetElement) {
+                        // Get the height of the navbar to offset scrolling
+                        const navbarHeight = document.querySelector('.navbar').offsetHeight;
+                        
+                        const targetPosition = targetElement.getBoundingClientRect().top + window.pageYOffset;
+                        
+                        window.scrollTo({
+                            top: targetPosition - navbarHeight - 20, // Additional 20px for spacing
+                            behavior: 'smooth'
+                        });
+                    }
                 }
             });
         });
