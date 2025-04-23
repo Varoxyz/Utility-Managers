@@ -6,6 +6,7 @@
     <title>Dust Manager - Professional Discord Server Cleanup Bot</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
+        /* CSS remains the same as in the original file */
         :root {
             --primary: #6D94D7;
             --primary-dark: #5575b7;
@@ -1199,7 +1200,7 @@
                     <p>Start fresh by unbanning all users at once. Perfect for giving second chances after a raid or nuke, or when you want to reset your server's ban list.</p>
                     <p>The tool provides options to unban all users with detailed logs for administrative oversight, making it easy to keep track of changes to your server.</p>
                     <div class="btn-container">
-                        <a href="#mass-unban" class="btn btn-primary"><i class="fas fa-user-check"></i> View Commands</a>
+                        <a href="#mass-unban-content" class="btn btn-primary"><i class="fas fa-user-check"></i> View Commands</a>
                         <a href="#usage" class="btn"><i class="fas fa-book"></i> Usage Guide</a>
                     </div>
                 </div>
@@ -1216,7 +1217,7 @@
                     <p>Clean up inactive server members with targeted purge operations. Remove users based on role criteria to maintain an engaged community.</p>
                     <p>All purge operations include confirmation steps and can be restricted to specific roles, ensuring you only remove the exact members you intend to.</p>
                     <div class="btn-container">
-                        <a href="#member-purge" class="btn btn-primary"><i class="fas fa-user-minus"></i> View Commands</a>
+                        <a href="#member-purge-content" class="btn btn-primary"><i class="fas fa-user-minus"></i> View Commands</a>
                         <a href="#usage" class="btn"><i class="fas fa-book"></i> Usage Guide</a>
                     </div>
                 </div>
@@ -1229,7 +1230,7 @@
                     <h3>Channel Cleanup</h3>
                     <p>Convert regular channels into command-only channels where users can still type, but only for bot commands. Perfect for bot-command channels where you want to reduce chat clutter and improve server organization.</p>
                     <div class="btn-container">
-                        <a href="#channel-cleanup" class="btn btn-primary"><i class="fas fa-hashtag"></i> View Commands</a>
+                        <a href="#channel-cleanup-content" class="btn btn-primary"><i class="fas fa-hashtag"></i> View Commands</a>
                     </div>
                 </div>
                 <div class="feature-card">
@@ -1239,7 +1240,7 @@
                     <h3>Message Clearing</h3>
                     <p>Remove messages in bulk with advanced filtering options. Clear messages by user or channel. Perfect for removing spam or cleaning up after events and ensuring your channels remain focused on relevant discussions.</p>
                     <div class="btn-container">
-                        <a href="#message-clearing" class="btn btn-primary"><i class="fas fa-trash"></i> View Commands</a>
+                        <a href="#message-clearing-content" class="btn btn-primary"><i class="fas fa-trash"></i> View Commands</a>
                     </div>
                 </div>
                 <div class="feature-card">
@@ -1249,7 +1250,7 @@
                     <h3>Access Control</h3>
                     <p>Control which roles can use Dust Manager commands. Restrict sensitive cleanup operations to trusted administrators while allowing moderators to handle routine tasks without compromising server security.</p>
                     <div class="btn-container">
-                        <a href="#access-control" class="btn btn-primary"><i class="fas fa-key"></i> View Commands</a>
+                        <a href="#access-control-content" class="btn btn-primary"><i class="fas fa-key"></i> View Commands</a>
                     </div>
                 </div>
                 <div class="feature-card">
@@ -1293,7 +1294,7 @@
                         <div class="command-list">
                             <div class="command-item">
                                 <div class="command-name">/unbanall</div>
-                                <div class="command-desc">Unban all users from the server</div>
+                                <div class="command-desc">Unban all users from the server. This will remove all bans from your server's ban list.</div>
                             </div>
                         </div>
                     </div>
@@ -1305,8 +1306,8 @@
                         <h4><i class="fas fa-user-minus"></i> Member Purge Commands</h4>
                         <div class="command-list">
                             <div class="command-item">
-                                <div class="command-name">/purge role:@role</div>
-                                <div class="command-desc">Kick members with a specific role</div>
+                                <div class="command-name">/purge @role @excluded-role</div>
+                                <div class="command-desc">Kick members with a specific role. You can optionally exclude members with another role from being kicked.</div>
                             </div>
                         </div>
                     </div>
@@ -1319,15 +1320,15 @@
                         <div class="command-list">
                             <div class="command-item">
                                 <div class="command-name">/cleanup-enable #channel</div>
-                                <div class="command-desc">Restrict channel to admin-only messages</div>
+                                <div class="command-desc">Restrict channel to admin-only messages and bot commands</div>
                             </div>
                             <div class="command-item">
                                 <div class="command-name">/cleanup-disable #channel</div>
-                                <div class="command-desc">Remove admin-only restriction</div>
+                                <div class="command-desc">Remove admin-only restriction from a channel</div>
                             </div>
                             <div class="command-item">
                                 <div class="command-name">/cleanup-list</div>
-                                <div class="command-desc">Show channels with admin-only mode</div>
+                                <div class="command-desc">Show all channels with cleanup mode enabled</div>
                             </div>
                         </div>
                     </div>
@@ -1339,12 +1340,12 @@
                         <h4><i class="fas fa-eraser"></i> Message Clearing Commands</h4>
                         <div class="command-list">
                             <div class="command-item">
-                                <div class="command-name">/clear-channel #channel amount:100</div>
-                                <div class="command-desc">Delete specified number of messages in a channel</div>
+                                <div class="command-name">/clear-channel Time #channel</div>
+                                <div class="command-desc">Delete specified number of messages in a channel based on time period</div>
                             </div>
                             <div class="command-item">
-                                <div class="command-name">/clear-user @user amount:50</div>
-                                <div class="command-desc">Delete messages from a specific user</div>
+                                <div class="command-name">/clear-user @user Time #channel</div>
+                                <div class="command-desc">Delete messages from a specific user within a time period in a channel</div>
                             </div>
                         </div>
                     </div>
@@ -1356,16 +1357,16 @@
                         <h4><i class="fas fa-lock"></i> Access Control Commands</h4>
                         <div class="command-list">
                             <div class="command-item">
-                                <div class="command-name">/access-grant @role command:"command-name"</div>
-                                <div class="command-desc">Grant command access to a role</div>
+                                <div class="command-name">/access-grant @role Category</div>
+                                <div class="command-desc">Grant command access to a role for a specific category of commands</div>
                             </div>
                             <div class="command-item">
-                                <div class="command-name">/access-revoke @role command:"command-name"</div>
-                                <div class="command-desc">Revoke command access from a role</div>
+                                <div class="command-name">/access-revoke @role Category</div>
+                                <div class="command-desc">Revoke command access from a role for a specific category</div>
                             </div>
                             <div class="command-item">
                                 <div class="command-name">/access-list</div>
-                                <div class="command-desc">List all command access permissions</div>
+                                <div class="command-desc">List all command access permissions currently configured</div>
                             </div>
                         </div>
                     </div>
@@ -1404,7 +1405,7 @@
                         <li>This is especially useful after resolving a raid situation or when you want to give banned users a fresh start.</li>
                     </ul>
                     <div style="text-align: center; margin-top: 1.5rem;" class="btn-container">
-                        <a href="#mass-unban" class="btn btn-primary"><i class="fas fa-user-check"></i> View Commands</a>
+                        <a href="#mass-unban-content" class="btn btn-primary"><i class="fas fa-user-check"></i> View Commands</a>
                         <a href="#features" class="btn"><i class="fas fa-arrow-up"></i> Back to Features</a>
                     </div>
                 </div>
@@ -1420,7 +1421,7 @@
                         <li>Ensure Dust Manager has the "Kick Members" permission in your server.</li>
                         <li>To purge members with a specific role:
                             <div class="command-block">
-                                /purge @role
+                                /purge @role @excluded-role
                             </div>
                         </li>
                         <li>You'll receive a confirmation message with the affected user count:
@@ -1432,7 +1433,7 @@
                         <li>This feature is useful for cleaning up inactive members or removing users with temporary roles after an event.</li>
                     </ul>
                     <div style="text-align: center; margin-top: 1.5rem;" class="btn-container">
-                        <a href="#member-purge" class="btn btn-primary"><i class="fas fa-user-minus"></i> View Commands</a>
+                        <a href="#member-purge-content" class="btn btn-primary"><i class="fas fa-user-minus"></i> View Commands</a>
                         <a href="#features" class="btn"><i class="fas fa-arrow-up"></i> Back to Features</a>
                     </div>
                 </div>
@@ -1464,7 +1465,7 @@
                         </li>
                     </ul>
                     <div style="text-align: center; margin-top: 1.5rem;" class="btn-container">
-                        <a href="#channel-cleanup" class="btn btn-primary"><i class="fas fa-hashtag"></i> View Commands</a>
+                        <a href="#channel-cleanup-content" class="btn btn-primary"><i class="fas fa-hashtag"></i> View Commands</a>
                         <a href="#features" class="btn"><i class="fas fa-arrow-up"></i> Back to Features</a>
                     </div>
                 </div>
@@ -1480,19 +1481,19 @@
                         <li>Ensure Dust Manager has the "Manage Messages" permission.</li>
                         <li>To clear messages in a channel:
                             <div class="command-block">
-                                /clear-channel #channel amount:50
+                                /clear-channel Time #channel
                             </div>
                         </li>
                         <li>To clear messages from a specific user:
                             <div class="command-block">
-                                /clear-user @user amount:20
+                                /clear-user @user Time #channel
                             </div>
                         </li>
                         <li>After execution, you'll receive a confirmation of how many messages were deleted.</li>
                         <li>This feature is perfect for cleaning up after events, removing spam, or maintaining a tidy server.</li>
                     </ul>
                     <div style="text-align: center; margin-top: 1.5rem;" class="btn-container">
-                        <a href="#message-clearing" class="btn btn-primary"><i class="fas fa-eraser"></i> View Commands</a>
+                        <a href="#message-clearing-content" class="btn btn-primary"><i class="fas fa-eraser"></i> View Commands</a>
                         <a href="#features" class="btn"><i class="fas fa-arrow-up"></i> Back to Features</a>
                     </div>
                 </div>
@@ -1558,8 +1559,7 @@
                     <p>A collection of powerful Discord bots designed to make server management easier and more efficient.</p>
                     <div class="social-links">
                         <a href="https://discord.gg/Wc3tTz5UzW" target="_blank"><i class="fab fa-discord"></i></a>
-                        <a href="#"><i class="fab fa-twitter"></i></a>
-                        <a href="#"><i class="fab fa-github"></i></a>
+                        <a href="https://github.com/Varoxyz" target="_blank"><i class="fab fa-github"></i></a>
                     </div>
                 </div>
                 <div class="footer-col">
@@ -1639,15 +1639,24 @@
             }
         });
         
-        // Smooth scroll
+        // Smooth scroll for all internal links
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 if (this.getAttribute('href') !== "#") {
                     e.preventDefault();
                     
-                    document.querySelector(this.getAttribute('href')).scrollIntoView({
-                        behavior: 'smooth'
-                    });
+                    const targetId = this.getAttribute('href').substring(1);
+                    const targetElement = document.getElementById(targetId);
+                    
+                    if (targetElement) {
+                        // Get the height of the navbar to offset scrolling
+                        const navbarHeight = document.querySelector('.navbar').offsetHeight;
+                        
+                        window.scrollTo({
+                            top: targetElement.offsetTop - navbarHeight - 20,
+                            behavior: 'smooth'
+                        });
+                    }
                 }
             });
         });
