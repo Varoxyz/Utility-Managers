@@ -342,6 +342,7 @@
 
         .privacy-content ul {
             list-style: none;
+            margin-bottom: 1.5rem;
         }
 
         .privacy-content li {
@@ -357,6 +358,64 @@
             position: absolute;
             left: 0;
             color: var(--primary);
+        }
+
+        .privacy-content p {
+            margin-bottom: 1rem;
+        }
+
+        .btn-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 12px 30px;
+            background: var(--primary);
+            color: var(--white);
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+            transition: var(--transition);
+            box-shadow: var(--shadow);
+            min-width: 180px;
+            text-align: center;
+        }
+
+        .btn i {
+            margin-right: 8px;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .btn-accent {
+            background: var(--accent);
+            color: var(--white);
+        }
+
+        .btn-accent:hover {
+            background: #e9a847;
+        }
+
+        .btn-light {
+            background: var(--white);
+            color: var(--primary);
+        }
+
+        .btn-light:hover {
+            background: var(--light);
         }
 
         .highlight-box {
@@ -582,36 +641,6 @@
             text-align: center;
             padding-top: 2rem;
             border-top: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .btn {
-            display: inline-block;
-            padding: 12px 30px;
-            background: var(--primary);
-            color: var(--white);
-            text-decoration: none;
-            border-radius: 50px;
-            font-weight: 600;
-            text-transform: uppercase;
-            font-size: 0.9rem;
-            letter-spacing: 1px;
-            transition: var(--transition);
-            box-shadow: var(--shadow);
-        }
-
-        .btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-            background: var(--primary-dark);
-        }
-
-        .btn-light {
-            background: var(--white);
-            color: var(--primary);
-        }
-
-        .btn-light:hover {
-            background: var(--light);
         }
 
         /* Back to top button */
@@ -878,74 +907,116 @@
                     <p>Last updated: <script>document.write(new Date().toLocaleDateString())</script></p>
                 </div>
                 <div class="privacy-body">
-                    <div class="privacy-section">
+                    <div class="privacy-section" id="agreement">
                         <div class="highlight-box">
                             <h4><i class="fas fa-info-circle"></i> Agreement</h4>
                             <p>By using any of the Utility Managers bots (including Role Manager, Dust Manager, and Security Manager), you agree to the terms outlined in this Privacy Policy. This policy describes how data is handled when you use our services.</p>
                         </div>
+                        <div class="btn-container">
+                            <a href="#collection" class="btn btn-primary"><i class="fas fa-arrow-down"></i> Data Collection</a>
+                            <a href="terms.html" class="btn"><i class="fas fa-file-contract"></i> Terms of Service</a>
+                        </div>
                     </div>
 
-                    <div class="privacy-section">
+                    <div class="privacy-section" id="collection">
                         <h3><i class="fas fa-database"></i> Data Collection</h3>
                         <div class="privacy-content">
                             <ul>
                                 <li>The bots may store certain server-level data necessary to operate their features effectively.</li>
                                 <li>This includes configuration settings and other information required to maintain functionality.</li>
                                 <li>We do not collect or store personal user data beyond what is essential for the bot's operation within Discord servers.</li>
+                                <li>Our bots only access the data they need to function properly. For example, Role Manager needs role information, Dust Manager needs message information for cleanup features.</li>
+                                <li>We do not track user conversations, personal messages, or activity outside of what's needed for the bot's functionality.</li>
                             </ul>
+                        </div>
+                        <div class="btn-container">
+                            <a href="#retention" class="btn btn-primary"><i class="fas fa-arrow-down"></i> Data Retention</a>
+                            <a href="#agreement" class="btn"><i class="fas fa-arrow-up"></i> Agreement</a>
                         </div>
                     </div>
 
-                    <div class="privacy-section">
+                    <div class="privacy-section" id="retention">
                         <h3><i class="fas fa-clock"></i> Data Retention</h3>
                         <div class="privacy-content">
                             <ul>
                                 <li>Data is retained only while the bot remains active in the server.</li>
                                 <li>If the bot is removed, all associated data is automatically and permanently deleted.</li>
                                 <li>We do not retain backups or historical data from servers once the bot has been uninstalled.</li>
+                                <li>Configuration data is kept as long as it's needed to provide the service you requested.</li>
+                                <li>We regularly review and purge unnecessary data to minimize our data footprint.</li>
                             </ul>
+                        </div>
+                        <div class="btn-container">
+                            <a href="#deletion" class="btn btn-primary"><i class="fas fa-arrow-down"></i> Data Deletion</a>
+                            <a href="#collection" class="btn"><i class="fas fa-arrow-up"></i> Data Collection</a>
                         </div>
                     </div>
 
-                    <div class="privacy-section">
+                    <div class="privacy-section" id="deletion">
                         <h3><i class="fas fa-trash-alt"></i> Data Deletion Requests</h3>
                         <div class="privacy-content">
                             <ul>
                                 <li>Server owners and administrators may request deletion of stored data at any time.</li>
                                 <li>Requests will be handled within a reasonable timeframe and confirmed upon completion.</li>
+                                <li>To request data deletion, contact us through our support server.</li>
+                                <li>Simply removing the bot from your server will also automatically delete all data associated with your server.</li>
+                                <li>We respect your right to control your data and will promptly fulfill valid deletion requests.</li>
                             </ul>
+                        </div>
+                        <div class="btn-container">
+                            <a href="#usage" class="btn btn-primary"><i class="fas fa-arrow-down"></i> Use of Data</a>
+                            <a href="#retention" class="btn"><i class="fas fa-arrow-up"></i> Data Retention</a>
                         </div>
                     </div>
 
-                    <div class="privacy-section">
+                    <div class="privacy-section" id="usage">
                         <h3><i class="fas fa-cog"></i> Use of Data</h3>
                         <div class="privacy-content">
                             <ul>
                                 <li>Stored data is used exclusively to deliver the core functionality of the bots and ensure consistent performance.</li>
                                 <li>The data is never used for analytics, profiling, or shared with third parties.</li>
                                 <li>No form of data monetization or external processing is performed.</li>
+                                <li>We do not sell, rent, or lease your data to any third party, under any circumstances.</li>
+                                <li>Our bots are designed with data minimization principles, collecting only what's necessary for functionality.</li>
                             </ul>
+                        </div>
+                        <div class="btn-container">
+                            <a href="#security" class="btn btn-primary"><i class="fas fa-arrow-down"></i> Platform & Security</a>
+                            <a href="#deletion" class="btn"><i class="fas fa-arrow-up"></i> Data Deletion</a>
                         </div>
                     </div>
 
-                    <div class="privacy-section">
+                    <div class="privacy-section" id="security">
                         <h3><i class="fas fa-shield-alt"></i> Platform and Security</h3>
                         <div class="privacy-content">
                             <ul>
                                 <li>The bots operate fully within the Discord platform and depend on Discord's API infrastructure.</li>
                                 <li>All usage is subject to <a href="https://discord.com/terms" target="_blank">Discord's Terms of Service</a> and <a href="https://discord.com/privacy" target="_blank">Privacy Policy</a>.</li>
                                 <li>Internal measures are in place to prevent unauthorized access and ensure the integrity and confidentiality of all stored information.</li>
+                                <li>We employ industry-standard security practices to protect your data from unauthorized access or disclosure.</li>
+                                <li>Our systems are regularly reviewed and updated to address emerging security threats and vulnerabilities.</li>
                             </ul>
+                        </div>
+                        <div class="btn-container">
+                            <a href="#changes" class="btn btn-primary"><i class="fas fa-arrow-down"></i> Policy Changes</a>
+                            <a href="#usage" class="btn"><i class="fas fa-arrow-up"></i> Use of Data</a>
                         </div>
                     </div>
 
-                    <div class="privacy-section">
+                    <div class="privacy-section" id="changes">
                         <h3><i class="fas fa-edit"></i> Changes to This Policy</h3>
                         <div class="privacy-content">
                             <ul>
                                 <li>This Privacy Policy may be updated at any time.</li>
                                 <li>Continued use of the bots following any changes constitutes acceptance of the revised policy.</li>
+                                <li>Significant changes to this policy will be communicated through our support server when possible.</li>
+                                <li>We recommend reviewing this policy periodically to stay informed about how we're protecting your information.</li>
+                                <li>The date at the top of this policy indicates when it was last updated.</li>
                             </ul>
+                        </div>
+                        <div class="btn-container">
+                            <a href="#agreement" class="btn btn-primary"><i class="fas fa-arrow-up"></i> Back to Top</a>
+                            <a href="index.html" class="btn"><i class="fas fa-home"></i> Return to Home</a>
                         </div>
                     </div>
 
@@ -973,7 +1044,11 @@
                     <div class="cta-section">
                         <h3>Your Privacy Matters</h3>
                         <p>If you have any questions about our Privacy Policy or would like to request data deletion, please contact us through our support channels.</p>
-                        <a href="https://discord.gg/Wc3tTz5UzW" class="btn btn-light" target="_blank">Join Support Server</a>
+                        <div class="btn-container">
+                            <a href="https://discord.gg/Wc3tTz5UzW" class="btn btn-light" target="_blank"><i class="fas fa-headset"></i> Join Support Server</a>
+                            <a href="terms.html" class="btn btn-light"><i class="fas fa-file-contract"></i> View Terms of Service</a>
+                            <a href="index.html" class="btn btn-light"><i class="fas fa-home"></i> Return to Home</a>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -1070,15 +1145,24 @@
             }
         });
         
-        // Smooth scroll
+        // Smooth scroll with header offset
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 if (this.getAttribute('href') !== "#") {
                     e.preventDefault();
                     
-                    document.querySelector(this.getAttribute('href')).scrollIntoView({
-                        behavior: 'smooth'
-                    });
+                    const targetId = this.getAttribute('href').substring(1);
+                    const targetElement = document.getElementById(targetId);
+                    
+                    if (targetElement) {
+                        const navbarHeight = document.querySelector('.navbar').offsetHeight;
+                        const targetPosition = targetElement.getBoundingClientRect().top + window.pageYOffset;
+                        
+                        window.scrollTo({
+                            top: targetPosition - navbarHeight - 20,
+                            behavior: 'smooth'
+                        });
+                    }
                 }
             });
         });
