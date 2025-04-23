@@ -164,7 +164,7 @@
         /* Hero Section */
         .hero {
             padding: 180px 0 100px;
-            background: linear-gradient(135deg, #6D94D7 0%, #3C5FA3 100%);
+            background: linear-gradient(135deg, var(--primary-light) 0%, var(--primary) 100%);
             color: var(--white);
             clip-path: polygon(0 0, 100% 0, 100% 85%, 0 100%);
             margin-bottom: 4rem;
@@ -280,6 +280,68 @@
 
         .btn-primary:hover {
             background: var(--primary-dark);
+        }
+
+        /* Privacy Banner */
+        .privacy-banner {
+            background: linear-gradient(135deg, var(--primary-light) 0%, var(--primary) 100%);
+            color: var(--white);
+            padding: 3rem 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            margin-bottom: 5rem;
+        }
+
+        .privacy-banner:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+            opacity: 0.1;
+        }
+
+        .privacy-content {
+            position: relative;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .privacy-content h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .privacy-content p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+
+        .privacy-badges {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 2rem;
+        }
+
+        .privacy-badge {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 0.8rem 1.5rem;
+            border-radius: 50px;
+            display: flex;
+            align-items: center;
+            font-weight: 600;
+            font-size: 1rem;
+        }
+
+        .privacy-badge i {
+            margin-right: 10px;
+            font-size: 1.2rem;
         }
 
         /* Features Section */
@@ -652,11 +714,11 @@
             border-radius: 10px;
             overflow: hidden;
             box-shadow: var(--shadow);
-            border-left: 5px solid #e74c3c;
+            border-left: 5px solid var(--primary);
         }
 
         .caution-header {
-            background: #e74c3c;
+            background: var(--primary);
             color: var(--white);
             padding: 1.5rem;
             display: flex;
@@ -693,75 +755,13 @@
             font-weight: 900;
             position: absolute;
             left: 0;
-            color: #e74c3c;
-        }
-
-        /* Privacy Banner Section */
-        .privacy-banner {
-            background: linear-gradient(135deg, #2E4057 0%, #1D2B3A 100%);
-            color: var(--white);
-            padding: 3rem 0;
-            text-align: center;
-            position: relative;
-            overflow: hidden;
-            margin-bottom: 5rem;
-        }
-
-        .privacy-banner:before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
-            opacity: 0.1;
-        }
-
-        .privacy-content {
-            position: relative;
-            max-width: 900px;
-            margin: 0 auto;
-        }
-
-        .privacy-content h2 {
-            font-size: 2.5rem;
-            margin-bottom: 1.5rem;
-        }
-
-        .privacy-content p {
-            font-size: 1.2rem;
-            margin-bottom: 2rem;
-            opacity: 0.9;
-        }
-
-        .privacy-badges {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 15px;
-            margin-top: 2rem;
-        }
-
-        .privacy-badge {
-            background: rgba(255, 255, 255, 0.1);
-            padding: 0.8rem 1.5rem;
-            border-radius: 50px;
-            display: flex;
-            align-items: center;
-            font-weight: 600;
-            font-size: 1rem;
-        }
-
-        .privacy-badge i {
-            margin-right: 10px;
-            font-size: 1.2rem;
+            color: var(--primary);
         }
 
         /* CTA Section */
         .cta-section {
             padding: 5rem 0;
-            background: linear-gradient(135deg, #6D94D7 0%, #3C5FA3 100%);
+            background: linear-gradient(135deg, var(--primary-light) 0%, var(--primary) 100%);
             color: var(--white);
             text-align: center;
             position: relative;
@@ -794,76 +794,6 @@
             font-size: 1.2rem;
             margin-bottom: 2rem;
             opacity: 0.9;
-        }
-
-        /* Reviews Section */
-        .reviews-section {
-            padding: 5rem 0;
-            background: var(--light);
-        }
-
-        .reviews-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 30px;
-        }
-
-        .review-card {
-            background: var(--white);
-            border-radius: 10px;
-            padding: 2rem;
-            box-shadow: var(--shadow);
-            transition: var(--transition);
-            height: 100%;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .review-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
-        }
-
-        .review-stars {
-            color: var(--accent);
-            font-size: 1.2rem;
-            margin-bottom: 1rem;
-        }
-
-        .review-content {
-            font-style: italic;
-            color: #666;
-            margin-bottom: 1.5rem;
-            flex: 1;
-        }
-
-        .review-author {
-            display: flex;
-            align-items: center;
-            margin-top: auto;
-        }
-
-        .author-avatar {
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            background: var(--primary-light);
-            color: var(--white);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.5rem;
-            margin-right: 1rem;
-        }
-
-        .author-info h4 {
-            font-size: 1.1rem;
-            margin-bottom: 0.2rem;
-        }
-
-        .author-info p {
-            font-size: 0.9rem;
-            color: #777;
         }
 
         /* Footer */
@@ -1324,26 +1254,6 @@
                 </div>
                 <div class="feature-card">
                     <div class="feature-icon">
-                        <i class="fas fa-tasks"></i>
-                    </div>
-                    <h3>Bulk Operations</h3>
-                    <p>Perform maintenance tasks across multiple channels or users simultaneously. Save time and effort by batching operations together rather than handling each one individually, increasing moderation efficiency.</p>
-                    <div class="btn-container">
-                        <a href="#bulk-operations" class="btn btn-primary"><i class="fas fa-layer-group"></i> Learn More</a>
-                    </div>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-calendar-check"></i>
-                    </div>
-                    <h3>Scheduled Cleanups</h3>
-                    <p>Set up regular automated cleanups for channels that tend to gather clutter. Keep your server consistently tidy without requiring manual intervention each time a channel needs maintenance.</p>
-                    <div class="btn-container">
-                        <a href="#scheduled-cleanups" class="btn btn-primary"><i class="fas fa-clock"></i> Learn More</a>
-                    </div>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">
                         <i class="fas fa-clipboard-check"></i>
                     </div>
                     <h3>Confirmation Systems</h3>
@@ -1374,7 +1284,6 @@
                     <button class="tab-btn" data-tab="channel-cleanup">Channel Cleanup</button>
                     <button class="tab-btn" data-tab="message-clearing">Message Clearing</button>
                     <button class="tab-btn" data-tab="access-control">Access Control</button>
-                    <button class="tab-btn" data-tab="bulk-operations">Bulk Operations</button>
                 </div>
 
                 <!-- Mass Unban Tab -->
@@ -1385,14 +1294,6 @@
                             <div class="command-item">
                                 <div class="command-name">/unbanall</div>
                                 <div class="command-desc">Unban all users from the server</div>
-                            </div>
-                            <div class="command-item">
-                                <div class="command-name">/unban-filter</div>
-                                <div class="command-desc">Unban users based on specified criteria</div>
-                            </div>
-                            <div class="command-item">
-                                <div class="command-name">/unban-list</div>
-                                <div class="command-desc">View a list of currently banned users</div>
                             </div>
                         </div>
                     </div>
@@ -1406,14 +1307,6 @@
                             <div class="command-item">
                                 <div class="command-name">/purge role:@role</div>
                                 <div class="command-desc">Kick members with a specific role</div>
-                            </div>
-                            <div class="command-item">
-                                <div class="command-name">/purge-inactive days:30</div>
-                                <div class="command-desc">Remove members inactive for specified period</div>
-                            </div>
-                            <div class="command-item">
-                                <div class="command-name">/purge-filter</div>
-                                <div class="command-desc">Remove members based on custom criteria</div>
                             </div>
                         </div>
                     </div>
@@ -1436,10 +1329,6 @@
                                 <div class="command-name">/cleanup-list</div>
                                 <div class="command-desc">Show channels with admin-only mode</div>
                             </div>
-                            <div class="command-item">
-                                <div class="command-name">/cleanup-settings #channel</div>
-                                <div class="command-desc">Customize cleanup behavior for the channel</div>
-                            </div>
                         </div>
                     </div>
                 </div>
@@ -1456,14 +1345,6 @@
                             <div class="command-item">
                                 <div class="command-name">/clear-user @user amount:50</div>
                                 <div class="command-desc">Delete messages from a specific user</div>
-                            </div>
-                            <div class="command-item">
-                                <div class="command-name">/clear-between messageId1 messageId2</div>
-                                <div class="command-desc">Delete all messages between two message IDs</div>
-                            </div>
-                            <div class="command-item">
-                                <div class="command-name">/clear-contains text:"keyword"</div>
-                                <div class="command-desc">Delete messages containing specific text</div>
                             </div>
                         </div>
                     </div>
@@ -1485,35 +1366,6 @@
                             <div class="command-item">
                                 <div class="command-name">/access-list</div>
                                 <div class="command-desc">List all command access permissions</div>
-                            </div>
-                            <div class="command-item">
-                                <div class="command-name">/access-reset</div>
-                                <div class="command-desc">Reset access settings to default</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Bulk Operations Tab -->
-                <div class="tab-content" id="bulk-operations-content">
-                    <div class="command-group">
-                        <h4><i class="fas fa-tasks"></i> Bulk Operations Commands</h4>
-                        <div class="command-list">
-                            <div class="command-item">
-                                <div class="command-name">/bulk-clear category:"category-name"</div>
-                                <div class="command-desc">Clear messages across all channels in a category</div>
-                            </div>
-                            <div class="command-item">
-                                <div class="command-name">/scheduled-cleanup #channel interval:daily</div>
-                                <div class="command-desc">Set up automated regular cleanups</div>
-                            </div>
-                            <div class="command-item">
-                                <div class="command-name">/bulk-operation-status</div>
-                                <div class="command-desc">Check status of running bulk operations</div>
-                            </div>
-                            <div class="command-item">
-                                <div class="command-name">/bulk-operation-cancel</div>
-                                <div class="command-desc">Cancel an ongoing bulk operation</div>
                             </div>
                         </div>
                     </div>
@@ -1610,11 +1462,6 @@
                                 /cleanup-list
                             </div>
                         </li>
-                        <li>For more advanced configuration, you can customize the cleanup settings:
-                            <div class="command-block">
-                                /cleanup-settings #channel allowMedia:true ignorePrefix:"!"
-                            </div>
-                        </li>
                     </ul>
                     <div style="text-align: center; margin-top: 1.5rem;" class="btn-container">
                         <a href="#channel-cleanup" class="btn btn-primary"><i class="fas fa-hashtag"></i> View Commands</a>
@@ -1641,95 +1488,12 @@
                                 /clear-user @user amount:20
                             </div>
                         </li>
-                        <li>To clear messages containing specific text:
-                            <div class="command-block">
-                                /clear-contains text:"spam phrase" #channel amount:100
-                            </div>
-                        </li>
                         <li>After execution, you'll receive a confirmation of how many messages were deleted.</li>
                         <li>This feature is perfect for cleaning up after events, removing spam, or maintaining a tidy server.</li>
                     </ul>
                     <div style="text-align: center; margin-top: 1.5rem;" class="btn-container">
                         <a href="#message-clearing" class="btn btn-primary"><i class="fas fa-eraser"></i> View Commands</a>
                         <a href="#features" class="btn"><i class="fas fa-arrow-up"></i> Back to Features</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Reviews Section -->
-    <section class="reviews-section">
-        <div class="container">
-            <div class="section-header">
-                <h2>What Server Admins Say</h2>
-                <p>Don't just take our word for it - hear from Discord servers already using Dust Manager</p>
-            </div>
-            
-            <div class="reviews-grid">
-                <div class="review-card">
-                    <div class="review-stars">
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                    </div>
-                    <div class="review-content">
-                        "Dust Manager has transformed how we maintain our gaming community. The mass message clearing and channel cleanup features save us hours of moderation time each week. Absolutely essential for any active server."
-                    </div>
-                    <div class="review-author">
-                        <div class="author-avatar">
-                            <i class="fas fa-user"></i>
-                        </div>
-                        <div class="author-info">
-                            <h4>Alex M.</h4>
-                            <p>Gaming Community Owner (15K+ members)</p>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="review-card">
-                    <div class="review-stars">
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                    </div>
-                    <div class="review-content">
-                        "The member purge utility is exactly what our educational server needed. After each semester, we can easily remove inactive students and keep our server focused on current participants. Simple to use but powerful."
-                    </div>
-                    <div class="review-author">
-                        <div class="author-avatar">
-                            <i class="fas fa-user"></i>
-                        </div>
-                        <div class="author-info">
-                            <h4>Sarah J.</h4>
-                            <p>Educational Discord Admin</p>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="review-card">
-                    <div class="review-stars">
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star-half-alt"></i>
-                    </div>
-                    <div class="review-content">
-                        "After a raid hit our community, Dust Manager's mass unban feature helped us recover quickly. We were able to unban legitimate users while keeping out the troublemakers. The confirmation system prevents mistakes, which is crucial for big operations."
-                    </div>
-                    <div class="review-author">
-                        <div class="author-avatar">
-                            <i class="fas fa-user"></i>
-                        </div>
-                        <div class="author-info">
-                            <h4>Miguel R.</h4>
-                            <p>Community Moderator</p>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -1794,8 +1558,8 @@
                     <p>A collection of powerful Discord bots designed to make server management easier and more efficient.</p>
                     <div class="social-links">
                         <a href="https://discord.gg/Wc3tTz5UzW" target="_blank"><i class="fab fa-discord"></i></a>
-                        <a href="https://twitter.com/UtilityManagers" target="_blank"><i class="fab fa-twitter"></i></a>
-                        <a href="https://github.com/UtilityManagers" target="_blank"><i class="fab fa-github"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-github"></i></a>
                     </div>
                 </div>
                 <div class="footer-col">
@@ -1811,17 +1575,12 @@
                     <ul class="footer-links">
                         <li><a href="terms.html"><i class="fas fa-angle-right"></i> Terms of Service</a></li>
                         <li><a href="privacy.html"><i class="fas fa-angle-right"></i> Privacy Policy</a></li>
-                        <li><a href="data-security.html"><i class="fas fa-angle-right"></i> Data Security</a></li>
-                        <li><a href="compliance.html"><i class="fas fa-angle-right"></i> Compliance</a></li>
                     </ul>
                 </div>
                 <div class="footer-col">
                     <h4>Support</h4>
                     <ul class="footer-links">
                         <li><a href="https://discord.gg/Wc3tTz5UzW" target="_blank"><i class="fas fa-angle-right"></i> Support Server</a></li>
-                        <li><a href="https://docs.utilitymanagers.com" target="_blank"><i class="fas fa-angle-right"></i> Documentation</a></li>
-                        <li><a href="faq.html"><i class="fas fa-angle-right"></i> FAQ</a></li>
-                        <li><a href="contact.html"><i class="fas fa-angle-right"></i> Contact Us</a></li>
                     </ul>
                 </div>
             </div>
