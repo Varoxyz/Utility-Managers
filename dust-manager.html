@@ -1,0 +1,1938 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dust Manager - Professional Discord Server Cleanup Bot</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #6D94D7;
+            --primary-dark: #5575b7;
+            --primary-light: #8eaee2;
+            --accent: #F6B352;
+            --dark: #2E4057;
+            --light: #F8F9FA;
+            --gray: #E9ECEF;
+            --white: #FFFFFF;
+            --shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.7;
+            color: var(--dark);
+            background-color: var(--light);
+            overflow-x: hidden;
+        }
+
+        /* Navigation */
+        .navbar {
+            background: var(--white);
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            box-shadow: var(--shadow);
+            padding: 1rem 0;
+            transition: var(--transition);
+        }
+
+        .navbar.scrolled {
+            padding: 0.5rem 0;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            transition: var(--transition);
+        }
+
+        .logo:hover {
+            color: var(--primary-dark);
+        }
+
+        .logo i {
+            font-size: 1.5em;
+            margin-right: 10px;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+
+        .nav-links li {
+            margin-left: 2rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: var(--transition);
+            position: relative;
+        }
+
+        .nav-links a:after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: -5px;
+            width: 0;
+            height: 3px;
+            background-color: var(--primary);
+            transition: var(--transition);
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        .nav-links a:hover:after {
+            width: 100%;
+        }
+
+        .dropdown {
+            position: relative;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background: var(--white);
+            min-width: 200px;
+            box-shadow: var(--shadow);
+            border-radius: 8px;
+            overflow: hidden;
+            z-index: 1001;
+            transform: translateY(10px);
+            transition: var(--transition);
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+            transform: translateY(0);
+        }
+
+        .dropdown-content a {
+            display: block;
+            padding: 12px 16px;
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 500;
+            transition: var(--transition);
+        }
+
+        .dropdown-content a:hover {
+            background-color: var(--primary-light);
+            color: var(--white);
+        }
+
+        .mobile-menu {
+            display: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 180px 0 100px;
+            background: linear-gradient(135deg, #6D94D7 0%, #3C5FA3 100%);
+            color: var(--white);
+            clip-path: polygon(0 0, 100% 0, 100% 85%, 0 100%);
+            margin-bottom: 4rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100'%3E%3Cg fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.1'%3E%3Cpath opacity='.5' d='M96 95h4v1h-4v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9zm-1 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-9-10h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm9-10v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-9-10h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm9-10v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-9-10h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+            opacity: 0.1;
+        }
+
+        .hero-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: relative;
+        }
+
+        .hero-content {
+            flex: 1;
+            padding-right: 2rem;
+        }
+
+        .hero-icon {
+            flex: 1;
+            text-align: center;
+            animation: sweep 3s ease-in-out infinite;
+        }
+
+        .hero-icon i {
+            font-size: 15rem;
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        @keyframes sweep {
+            0% {
+                transform: translateX(0) rotate(0deg);
+            }
+            50% {
+                transform: translateX(10px) rotate(5deg);
+            }
+            100% {
+                transform: translateX(0) rotate(0deg);
+            }
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            line-height: 1.2;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+
+        .btn-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 12px 30px;
+            background: var(--white);
+            color: var(--primary);
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+            transition: var(--transition);
+            box-shadow: var(--shadow);
+            min-width: 180px;
+            text-align: center;
+        }
+
+        .btn i {
+            margin-right: 8px;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .btn-accent {
+            background: var(--accent);
+            color: var(--white);
+        }
+
+        .btn-accent:hover {
+            background: #e9a847;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: var(--white);
+        }
+
+        .btn-primary:hover {
+            background: var(--primary-dark);
+        }
+
+        /* Features Section */
+        .features-section {
+            padding: 5rem 0;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .section-header h2 {
+            font-size: 2.5rem;
+            color: var(--dark);
+            margin-bottom: 1rem;
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-header h2:after {
+            content: '';
+            position: absolute;
+            left: 50%;
+            bottom: -10px;
+            width: 50px;
+            height: 4px;
+            background: var(--primary);
+            transform: translateX(-50%);
+        }
+
+        .section-header p {
+            color: #777;
+            font-size: 1.1rem;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .features-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 4rem;
+        }
+
+        .features-content {
+            flex: 1;
+            min-width: 300px;
+            padding-right: 2rem;
+        }
+
+        .features-content h3 {
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            color: var(--primary-dark);
+        }
+
+        .features-icon {
+            flex: 1;
+            min-width: 300px;
+            text-align: center;
+        }
+
+        .features-icon i {
+            font-size: 10rem;
+            color: var(--primary-light);
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .feature-card {
+            background: var(--white);
+            border-radius: 10px;
+            padding: 2rem;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .feature-icon {
+            font-size: 3rem;
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+
+        .feature-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--dark);
+            text-align: center;
+        }
+
+        .feature-card p {
+            color: #666;
+            margin-bottom: 1.5rem;
+            flex: 1;
+        }
+
+        .feature-card .btn-container {
+            margin-top: auto;
+            text-align: center;
+            display: flex;
+            justify-content: center;
+        }
+
+        /* Commands Section */
+        .commands-section {
+            padding: 5rem 0;
+            background: var(--light);
+        }
+
+        .commands-container {
+            background: var(--white);
+            border-radius: 10px;
+            box-shadow: var(--shadow);
+            overflow: hidden;
+        }
+
+        .commands-header {
+            background: var(--primary);
+            color: var(--white);
+            padding: 2rem;
+            text-align: center;
+            position: relative;
+        }
+
+        .commands-header:before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0) 80%);
+            transform: rotate(30deg);
+        }
+
+        .commands-header h3 {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+            position: relative;
+        }
+
+        .commands-tabs {
+            display: flex;
+            overflow-x: auto;
+            background: var(--gray);
+            padding: 1rem;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+
+        .tab-btn {
+            padding: 0.8rem 1.5rem;
+            background: var(--white);
+            border: none;
+            border-radius: 30px;
+            margin-right: 1rem;
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--dark);
+            cursor: pointer;
+            transition: var(--transition);
+            white-space: nowrap;
+        }
+
+        .tab-btn:last-child {
+            margin-right: 0;
+        }
+
+        .tab-btn.active {
+            background: var(--primary);
+            color: var(--white);
+        }
+
+        .tab-content {
+            padding: 2rem;
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        .command-group {
+            margin-bottom: 2rem;
+        }
+
+        .command-group:last-child {
+            margin-bottom: 0;
+        }
+
+        .command-group h4 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--primary-dark);
+            display: flex;
+            align-items: center;
+        }
+
+        .command-group h4 i {
+            margin-right: 10px;
+            width: 30px;
+            height: 30px;
+            background: var(--primary-light);
+            color: var(--white);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.9rem;
+        }
+
+        .command-list {
+            background: var(--light);
+            border-radius: 10px;
+            padding: 1.5rem;
+            border-left: 4px solid var(--primary);
+        }
+
+        .command-item {
+            display: flex;
+            margin-bottom: 1rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        .command-item:last-child {
+            margin-bottom: 0;
+            padding-bottom: 0;
+            border-bottom: none;
+        }
+
+        .command-name {
+            font-family: monospace;
+            background: var(--dark);
+            color: var(--white);
+            padding: 0.2rem 0.5rem;
+            border-radius: 4px;
+            font-size: 0.9rem;
+            flex: 1;
+        }
+
+        .command-desc {
+            flex: 2;
+            padding-left: 1rem;
+        }
+
+        /* Usage Section */
+        .usage-section {
+            padding: 5rem 0;
+        }
+
+        .usage-card {
+            background: var(--white);
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            margin-bottom: 2rem;
+        }
+
+        .usage-header {
+            background: var(--primary);
+            color: var(--white);
+            padding: 1.5rem;
+        }
+
+        .usage-header h3 {
+            display: flex;
+            align-items: center;
+            font-size: 1.8rem;
+        }
+
+        .usage-header h3 i {
+            margin-right: 15px;
+        }
+
+        .usage-body {
+            padding: 2rem;
+        }
+
+        .usage-steps {
+            list-style: none;
+            counter-reset: steps;
+            margin-bottom: 1.5rem;
+        }
+
+        .usage-steps li {
+            margin-bottom: 1.5rem;
+            position: relative;
+            padding-left: 2.5rem;
+        }
+
+        .usage-steps li:before {
+            counter-increment: steps;
+            content: counter(steps);
+            position: absolute;
+            left: 0;
+            top: 2px;
+            width: 25px;
+            height: 25px;
+            background: var(--primary);
+            color: var(--white);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .usage-steps li:last-child {
+            margin-bottom: 0;
+        }
+
+        .command-block {
+            background: var(--dark);
+            color: var(--white);
+            padding: 1rem;
+            border-radius: 5px;
+            font-family: monospace;
+            margin: 1rem 0;
+            overflow-x: auto;
+        }
+
+        .command-block code {
+            color: var(--accent);
+        }
+
+        .result-block {
+            background: var(--gray);
+            padding: 1rem;
+            border-radius: 5px;
+            margin: 1rem 0;
+            border-left: 4px solid var(--primary);
+        }
+
+        /* Caution Section */
+        .caution-section {
+            padding: 5rem 0;
+            background: var(--light);
+        }
+
+        .caution-card {
+            background: var(--white);
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            border-left: 5px solid #e74c3c;
+        }
+
+        .caution-header {
+            background: #e74c3c;
+            color: var(--white);
+            padding: 1.5rem;
+            display: flex;
+            align-items: center;
+        }
+
+        .caution-header i {
+            font-size: 2rem;
+            margin-right: 1rem;
+        }
+
+        .caution-header h3 {
+            font-size: 1.8rem;
+        }
+
+        .caution-body {
+            padding: 2rem;
+        }
+
+        .caution-list {
+            list-style: none;
+            margin-bottom: 1.5rem;
+        }
+
+        .caution-list li {
+            margin-bottom: 1rem;
+            position: relative;
+            padding-left: 2rem;
+        }
+
+        .caution-list li:before {
+            content: '\f071';
+            font-family: 'Font Awesome 5 Free';
+            font-weight: 900;
+            position: absolute;
+            left: 0;
+            color: #e74c3c;
+        }
+
+        /* Privacy Banner Section */
+        .privacy-banner {
+            background: linear-gradient(135deg, #2E4057 0%, #1D2B3A 100%);
+            color: var(--white);
+            padding: 3rem 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            margin-bottom: 5rem;
+        }
+
+        .privacy-banner:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+            opacity: 0.1;
+        }
+
+        .privacy-content {
+            position: relative;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .privacy-content h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .privacy-content p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+
+        .privacy-badges {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 2rem;
+        }
+
+        .privacy-badge {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 0.8rem 1.5rem;
+            border-radius: 50px;
+            display: flex;
+            align-items: center;
+            font-weight: 600;
+            font-size: 1rem;
+        }
+
+        .privacy-badge i {
+            margin-right: 10px;
+            font-size: 1.2rem;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            padding: 5rem 0;
+            background: linear-gradient(135deg, #6D94D7 0%, #3C5FA3 100%);
+            color: var(--white);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-section:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+            opacity: 0.1;
+        }
+
+        .cta-content {
+            position: relative;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .cta-content h2 {
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .cta-content p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+
+        /* Reviews Section */
+        .reviews-section {
+            padding: 5rem 0;
+            background: var(--light);
+        }
+
+        .reviews-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 30px;
+        }
+
+        .review-card {
+            background: var(--white);
+            border-radius: 10px;
+            padding: 2rem;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .review-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .review-stars {
+            color: var(--accent);
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+        }
+
+        .review-content {
+            font-style: italic;
+            color: #666;
+            margin-bottom: 1.5rem;
+            flex: 1;
+        }
+
+        .review-author {
+            display: flex;
+            align-items: center;
+            margin-top: auto;
+        }
+
+        .author-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: var(--primary-light);
+            color: var(--white);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            margin-right: 1rem;
+        }
+
+        .author-info h4 {
+            font-size: 1.1rem;
+            margin-bottom: 0.2rem;
+        }
+
+        .author-info p {
+            font-size: 0.9rem;
+            color: #777;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--dark);
+            color: var(--light);
+            padding: 4rem 0 2rem;
+        }
+
+        .footer-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-bottom: 3rem;
+        }
+
+        .footer-col h4 {
+            font-size: 1.3rem;
+            margin-bottom: 1.5rem;
+            position: relative;
+            padding-bottom: 0.5rem;
+        }
+
+        .footer-col h4:after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 30px;
+            height: 3px;
+            background: var(--primary);
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 1rem;
+        }
+
+        .footer-links a {
+            color: var(--light);
+            text-decoration: none;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+        }
+
+        .footer-links a i {
+            margin-right: 10px;
+            font-size: 0.8rem;
+        }
+
+        .footer-links a:hover {
+            color: var(--primary);
+            padding-left: 5px;
+        }
+
+        .social-links {
+            display: flex;
+            margin-top: 1.5rem;
+        }
+
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--white);
+            margin-right: 1rem;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .social-links a:hover {
+            background: var(--primary);
+            transform: translateY(-3px);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        /* Back to top button */
+        .back-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: var(--primary);
+            color: var(--white);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            opacity: 0;
+            visibility: hidden;
+            z-index: 999;
+        }
+
+        .back-to-top.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .back-to-top:hover {
+            background: var(--primary-dark);
+            transform: translateY(-5px);
+        }
+
+        /* Quick Access Floating Menu */
+        .quick-access {
+            position: fixed;
+            left: 30px;
+            bottom: 30px;
+            z-index: 998;
+        }
+
+        .quick-menu-toggle {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: var(--primary);
+            color: var(--white);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            box-shadow: var(--shadow);
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .quick-menu-toggle:hover {
+            transform: rotate(45deg);
+            background: var(--primary-dark);
+        }
+
+        .quick-menu {
+            position: absolute;
+            bottom: 70px;
+            left: 0;
+            background: var(--white);
+            border-radius: 10px;
+            box-shadow: var(--shadow);
+            width: 200px;
+            padding: 1rem 0;
+            transform: translateY(20px);
+            opacity: 0;
+            visibility: hidden;
+            transition: var(--transition);
+        }
+
+        .quick-menu.active {
+            transform: translateY(0);
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .quick-menu-item {
+            padding: 0.8rem 1.5rem;
+            display: flex;
+            align-items: center;
+            color: var(--dark);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .quick-menu-item:hover {
+            background: var(--primary-light);
+            color: var(--white);
+        }
+
+        .quick-menu-item i {
+            margin-right: 10px;
+            width: 20px;
+            text-align: center;
+        }
+
+        /* Responsive */
+        @media (max-width: 992px) {
+            .hero-container {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .hero-content {
+                padding-right: 0;
+                margin-bottom: 3rem;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .navbar {
+                padding: 1rem 0;
+            }
+
+            .navbar.scrolled {
+                padding: 1rem 0;
+            }
+
+            .mobile-menu {
+                display: block;
+            }
+
+            .nav-links {
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: var(--white);
+                flex-direction: column;
+                text-align: center;
+                padding: 1rem 0;
+                box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+                clip-path: polygon(0 0, 100% 0, 100% 0, 0 0);
+                transition: var(--transition);
+            }
+
+            .nav-links.active {
+                clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+            }
+
+            .nav-links li {
+                margin: 1rem 0;
+            }
+
+            .dropdown-content {
+                position: static;
+                box-shadow: none;
+                background: var(--gray);
+                display: none;
+                transform: none;
+            }
+
+            .dropdown.active .dropdown-content {
+                display: block;
+            }
+
+            .features-container {
+                flex-direction: column;
+            }
+
+            .features-content, .features-icon {
+                width: 100%;
+                padding-right: 0;
+                margin-bottom: 2rem;
+            }
+
+            .commands-tabs {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .tab-btn {
+                margin-bottom: 1rem;
+            }
+
+            .command-item {
+                flex-direction: column;
+            }
+
+            .command-name {
+                margin-bottom: 0.5rem;
+            }
+
+            .command-desc {
+                padding-left: 0;
+            }
+
+            .btn-container {
+                justify-content: center;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .section-header h2 {
+                font-size: 2rem;
+            }
+
+            .feature-card h3 {
+                font-size: 1.5rem;
+            }
+
+            .cta-content h2 {
+                font-size: 2rem;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .btn {
+                width: 100%;
+            }
+
+            .feature-card, .usage-card, .caution-card {
+                padding: 1.5rem;
+            }
+            
+            .quick-access {
+                left: 20px;
+                bottom: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container nav-container">
+            <a href="index.html" class="logo">
+                <i class="fas fa-sailboat"></i>
+                Utility Managers
+            </a>
+            <div class="mobile-menu">
+                <i class="fas fa-bars"></i>
+            </div>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li class="dropdown">
+                    <a href="#bots">Our Bots <i class="fas fa-chevron-down"></i></a>
+                    <div class="dropdown-content">
+                        <a href="security-manager.html">Security Manager</a>
+                        <a href="role-manager.html">Role Manager</a>
+                        <a href="dust-manager.html">Dust Manager</a>
+                    </div>
+                </li>
+                <li><a href="#features">Features</a></li>
+                <li><a href="#commands">Commands</a></li>
+                <li><a href="#usage">Usage Guide</a></li>
+                <li class="dropdown">
+                    <a href="#">Legal <i class="fas fa-chevron-down"></i></a>
+                    <div class="dropdown-content">
+                        <a href="terms.html">Terms of Service</a>
+                        <a href="privacy.html">Privacy Policy</a>
+                    </div>
+                </li>
+                <li><a href="https://discord.gg/Wc3tTz5UzW" target="_blank">Support</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container hero-container">
+            <div class="hero-content">
+                <h1>Dust Manager</h1>
+                <p>Powerful Discord server maintenance and cleanup tools. Keep your server tidy, manage members, and perform bulk operations with ease and precision.</p>
+                <div class="btn-container">
+                    <a href="#features" class="btn"><i class="fas fa-list"></i> Explore Features</a>
+                    <a href="#commands" class="btn btn-primary"><i class="fas fa-terminal"></i> View Commands</a>
+                    <a href="https://discord.com/oauth2/authorize?client_id=1352683077528195092" class="btn btn-accent" target="_blank"><i class="fas fa-plus-circle"></i> Add to Discord</a>
+                </div>
+            </div>
+            <div class="hero-icon">
+                <i class="fas fa-broom"></i>
+            </div>
+        </div>
+    </section>
+
+    <!-- Privacy Banner -->
+    <section class="privacy-banner">
+        <div class="container">
+            <div class="privacy-content">
+                <h2><i class="fas fa-shield-alt"></i> Your Data Privacy Is Our Priority</h2>
+                <p>At Utility Managers, we take data privacy seriously. Dust Manager only stores essential configuration settings and never collects, shares, or sells your personal information. All data is automatically deleted when you remove the bot from your server.</p>
+                <div class="privacy-badges">
+                    <span class="privacy-badge"><i class="fas fa-lock"></i> No Personal Data Collection</span>
+                    <span class="privacy-badge"><i class="fas fa-trash-alt"></i> Data Auto-Deletion</span>
+                    <span class="privacy-badge"><i class="fas fa-user-shield"></i> Privacy-First Development</span>
+                    <span class="privacy-badge"><i class="fas fa-ban"></i> No Third-Party Sharing</span>
+                </div>
+                <a href="privacy.html" class="btn btn-light" style="margin-top: 25px;"><i class="fas fa-file-alt"></i> Read Our Privacy Policy</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features-section" id="features">
+        <div class="container">
+            <div class="section-header">
+                <h2>Powerful Cleanup Tools</h2>
+                <p>Maintain a clean and organized Discord server with these essential features</p>
+            </div>
+            <div class="features-container">
+                <div class="features-content">
+                    <h3>Mass Unban Tool</h3>
+                    <p>Start fresh by unbanning all users at once. Perfect for giving second chances after a raid or nuke, or when you want to reset your server's ban list.</p>
+                    <p>The tool provides options to unban all users with detailed logs for administrative oversight, making it easy to keep track of changes to your server.</p>
+                    <div class="btn-container">
+                        <a href="#mass-unban" class="btn btn-primary"><i class="fas fa-user-check"></i> View Commands</a>
+                        <a href="#usage" class="btn"><i class="fas fa-book"></i> Usage Guide</a>
+                    </div>
+                </div>
+                <div class="features-icon">
+                    <i class="fas fa-user-check"></i>
+                </div>
+            </div>
+            <div class="features-container">
+                <div class="features-icon">
+                    <i class="fas fa-user-minus"></i>
+                </div>
+                <div class="features-content">
+                    <h3>Member Purge Utility</h3>
+                    <p>Clean up inactive server members with targeted purge operations. Remove users based on role criteria to maintain an engaged community.</p>
+                    <p>All purge operations include confirmation steps and can be restricted to specific roles, ensuring you only remove the exact members you intend to.</p>
+                    <div class="btn-container">
+                        <a href="#member-purge" class="btn btn-primary"><i class="fas fa-user-minus"></i> View Commands</a>
+                        <a href="#usage" class="btn"><i class="fas fa-book"></i> Usage Guide</a>
+                    </div>
+                </div>
+            </div>
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-broom"></i>
+                    </div>
+                    <h3>Channel Cleanup</h3>
+                    <p>Convert regular channels into command-only channels where users can still type, but only for bot commands. Perfect for bot-command channels where you want to reduce chat clutter and improve server organization.</p>
+                    <div class="btn-container">
+                        <a href="#channel-cleanup" class="btn btn-primary"><i class="fas fa-hashtag"></i> View Commands</a>
+                    </div>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-eraser"></i>
+                    </div>
+                    <h3>Message Clearing</h3>
+                    <p>Remove messages in bulk with advanced filtering options. Clear messages by user or channel. Perfect for removing spam or cleaning up after events and ensuring your channels remain focused on relevant discussions.</p>
+                    <div class="btn-container">
+                        <a href="#message-clearing" class="btn btn-primary"><i class="fas fa-trash"></i> View Commands</a>
+                    </div>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-lock"></i>
+                    </div>
+                    <h3>Access Control</h3>
+                    <p>Control which roles can use Dust Manager commands. Restrict sensitive cleanup operations to trusted administrators while allowing moderators to handle routine tasks without compromising server security.</p>
+                    <div class="btn-container">
+                        <a href="#access-control" class="btn btn-primary"><i class="fas fa-key"></i> View Commands</a>
+                    </div>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-tasks"></i>
+                    </div>
+                    <h3>Bulk Operations</h3>
+                    <p>Perform maintenance tasks across multiple channels or users simultaneously. Save time and effort by batching operations together rather than handling each one individually, increasing moderation efficiency.</p>
+                    <div class="btn-container">
+                        <a href="#bulk-operations" class="btn btn-primary"><i class="fas fa-layer-group"></i> Learn More</a>
+                    </div>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-calendar-check"></i>
+                    </div>
+                    <h3>Scheduled Cleanups</h3>
+                    <p>Set up regular automated cleanups for channels that tend to gather clutter. Keep your server consistently tidy without requiring manual intervention each time a channel needs maintenance.</p>
+                    <div class="btn-container">
+                        <a href="#scheduled-cleanups" class="btn btn-primary"><i class="fas fa-clock"></i> Learn More</a>
+                    </div>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-clipboard-check"></i>
+                    </div>
+                    <h3>Confirmation Systems</h3>
+                    <p>All major operations require confirmation before execution to prevent accidental data loss. Built-in safeguards ensure you never accidentally perform unintended cleanup operations that might disrupt your community.</p>
+                    <div class="btn-container">
+                        <a href="https://discord.gg/Wc3tTz5UzW" class="btn btn-primary" target="_blank"><i class="fas fa-headset"></i> Get Support</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Commands Section -->
+    <section class="commands-section" id="commands">
+        <div class="container">
+            <div class="section-header">
+                <h2>Command Reference</h2>
+                <p>Easy-to-use commands for maintaining your Discord server</p>
+            </div>
+            <div class="commands-container">
+                <div class="commands-header">
+                    <h3>Dust Manager Commands</h3>
+                    <p>All commands use Discord's slash command system for intuitive, predictable operation</p>
+                </div>
+                <div class="commands-tabs">
+                    <button class="tab-btn active" data-tab="mass-unban">Mass Unban</button>
+                    <button class="tab-btn" data-tab="member-purge">Member Purge</button>
+                    <button class="tab-btn" data-tab="channel-cleanup">Channel Cleanup</button>
+                    <button class="tab-btn" data-tab="message-clearing">Message Clearing</button>
+                    <button class="tab-btn" data-tab="access-control">Access Control</button>
+                    <button class="tab-btn" data-tab="bulk-operations">Bulk Operations</button>
+                </div>
+
+                <!-- Mass Unban Tab -->
+                <div class="tab-content active" id="mass-unban-content">
+                    <div class="command-group">
+                        <h4><i class="fas fa-user-check"></i> Mass Unban Commands</h4>
+                        <div class="command-list">
+                            <div class="command-item">
+                                <div class="command-name">/unbanall</div>
+                                <div class="command-desc">Unban all users from the server</div>
+                            </div>
+                            <div class="command-item">
+                                <div class="command-name">/unban-filter</div>
+                                <div class="command-desc">Unban users based on specified criteria</div>
+                            </div>
+                            <div class="command-item">
+                                <div class="command-name">/unban-list</div>
+                                <div class="command-desc">View a list of currently banned users</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Member Purge Tab -->
+                <div class="tab-content" id="member-purge-content">
+                    <div class="command-group">
+                        <h4><i class="fas fa-user-minus"></i> Member Purge Commands</h4>
+                        <div class="command-list">
+                            <div class="command-item">
+                                <div class="command-name">/purge role:@role</div>
+                                <div class="command-desc">Kick members with a specific role</div>
+                            </div>
+                            <div class="command-item">
+                                <div class="command-name">/purge-inactive days:30</div>
+                                <div class="command-desc">Remove members inactive for specified period</div>
+                            </div>
+                            <div class="command-item">
+                                <div class="command-name">/purge-filter</div>
+                                <div class="command-desc">Remove members based on custom criteria</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Channel Cleanup Tab -->
+                <div class="tab-content" id="channel-cleanup-content">
+                    <div class="command-group">
+                        <h4><i class="fas fa-broom"></i> Channel Cleanup Commands</h4>
+                        <div class="command-list">
+                            <div class="command-item">
+                                <div class="command-name">/cleanup-enable #channel</div>
+                                <div class="command-desc">Restrict channel to admin-only messages</div>
+                            </div>
+                            <div class="command-item">
+                                <div class="command-name">/cleanup-disable #channel</div>
+                                <div class="command-desc">Remove admin-only restriction</div>
+                            </div>
+                            <div class="command-item">
+                                <div class="command-name">/cleanup-list</div>
+                                <div class="command-desc">Show channels with admin-only mode</div>
+                            </div>
+                            <div class="command-item">
+                                <div class="command-name">/cleanup-settings #channel</div>
+                                <div class="command-desc">Customize cleanup behavior for the channel</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Message Clearing Tab -->
+                <div class="tab-content" id="message-clearing-content">
+                    <div class="command-group">
+                        <h4><i class="fas fa-eraser"></i> Message Clearing Commands</h4>
+                        <div class="command-list">
+                            <div class="command-item">
+                                <div class="command-name">/clear-channel #channel amount:100</div>
+                                <div class="command-desc">Delete specified number of messages in a channel</div>
+                            </div>
+                            <div class="command-item">
+                                <div class="command-name">/clear-user @user amount:50</div>
+                                <div class="command-desc">Delete messages from a specific user</div>
+                            </div>
+                            <div class="command-item">
+                                <div class="command-name">/clear-between messageId1 messageId2</div>
+                                <div class="command-desc">Delete all messages between two message IDs</div>
+                            </div>
+                            <div class="command-item">
+                                <div class="command-name">/clear-contains text:"keyword"</div>
+                                <div class="command-desc">Delete messages containing specific text</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Access Control Tab -->
+                <div class="tab-content" id="access-control-content">
+                    <div class="command-group">
+                        <h4><i class="fas fa-lock"></i> Access Control Commands</h4>
+                        <div class="command-list">
+                            <div class="command-item">
+                                <div class="command-name">/access-grant @role command:"command-name"</div>
+                                <div class="command-desc">Grant command access to a role</div>
+                            </div>
+                            <div class="command-item">
+                                <div class="command-name">/access-revoke @role command:"command-name"</div>
+                                <div class="command-desc">Revoke command access from a role</div>
+                            </div>
+                            <div class="command-item">
+                                <div class="command-name">/access-list</div>
+                                <div class="command-desc">List all command access permissions</div>
+                            </div>
+                            <div class="command-item">
+                                <div class="command-name">/access-reset</div>
+                                <div class="command-desc">Reset access settings to default</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Bulk Operations Tab -->
+                <div class="tab-content" id="bulk-operations-content">
+                    <div class="command-group">
+                        <h4><i class="fas fa-tasks"></i> Bulk Operations Commands</h4>
+                        <div class="command-list">
+                            <div class="command-item">
+                                <div class="command-name">/bulk-clear category:"category-name"</div>
+                                <div class="command-desc">Clear messages across all channels in a category</div>
+                            </div>
+                            <div class="command-item">
+                                <div class="command-name">/scheduled-cleanup #channel interval:daily</div>
+                                <div class="command-desc">Set up automated regular cleanups</div>
+                            </div>
+                            <div class="command-item">
+                                <div class="command-name">/bulk-operation-status</div>
+                                <div class="command-desc">Check status of running bulk operations</div>
+                            </div>
+                            <div class="command-item">
+                                <div class="command-name">/bulk-operation-cancel</div>
+                                <div class="command-desc">Cancel an ongoing bulk operation</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Usage Guide Section -->
+    <section class="usage-section" id="usage">
+        <div class="container">
+            <div class="section-header">
+                <h2>Usage Guide</h2>
+                <p>Learn how to effectively use Dust Manager's powerful cleanup tools</p>
+            </div>
+            
+            <div class="usage-card">
+                <div class="usage-header">
+                    <h3><i class="fas fa-user-check"></i> Mass Unban Guide</h3>
+                </div>
+                <div class="usage-body">
+                    <p>The mass unban feature allows you to unban multiple users at once, giving them a second chance to join your server.</p>
+                    <ul class="usage-steps">
+                        <li>Make sure Dust Manager has the appropriate permissions to manage bans in your server.</li>
+                        <li>Use the command to unban all users:
+                            <div class="command-block">
+                                /unbanall
+                            </div>
+                        </li>
+                        <li>You'll receive a confirmation message showing how many users will be unbanned. Confirm to proceed:
+                            <div class="result-block">
+                                Ready to unban 45 users. Type "confirm" to proceed or "cancel" to abort.
+                            </div>
+                        </li>
+                        <li>Once complete, you'll receive a log of all unbanned users for your records.</li>
+                        <li>This is especially useful after resolving a raid situation or when you want to give banned users a fresh start.</li>
+                    </ul>
+                    <div style="text-align: center; margin-top: 1.5rem;" class="btn-container">
+                        <a href="#mass-unban" class="btn btn-primary"><i class="fas fa-user-check"></i> View Commands</a>
+                        <a href="#features" class="btn"><i class="fas fa-arrow-up"></i> Back to Features</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="usage-card">
+                <div class="usage-header">
+                    <h3><i class="fas fa-users-slash"></i> Member Purge Guide</h3>
+                </div>
+                <div class="usage-body">
+                    <p>The member purge utility allows you to remove users with specific roles from your server.</p>
+                    <ul class="usage-steps">
+                        <li>Ensure Dust Manager has the "Kick Members" permission in your server.</li>
+                        <li>To purge members with a specific role:
+                            <div class="command-block">
+                                /purge @role
+                            </div>
+                        </li>
+                        <li>You'll receive a confirmation message with the affected user count:
+                            <div class="result-block">
+                                This will remove 23 members from the server. Type "confirm" to proceed or "cancel" to abort.
+                            </div>
+                        </li>
+                        <li>After confirmation, members will be kicked and you'll receive a log of the operation.</li>
+                        <li>This feature is useful for cleaning up inactive members or removing users with temporary roles after an event.</li>
+                    </ul>
+                    <div style="text-align: center; margin-top: 1.5rem;" class="btn-container">
+                        <a href="#member-purge" class="btn btn-primary"><i class="fas fa-user-minus"></i> View Commands</a>
+                        <a href="#features" class="btn"><i class="fas fa-arrow-up"></i> Back to Features</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="usage-card">
+                <div class="usage-header">
+                    <h3><i class="fas fa-hashtag"></i> Channel Cleanup Guide</h3>
+                </div>
+                <div class="usage-body">
+                    <p>Convert regular channels into command-only channels to reduce clutter while still allowing bot commands.</p>
+                    <ul class="usage-steps">
+                        <li>Ensure Dust Manager has "Manage Channels" and "Manage Messages" permissions.</li>
+                        <li>To set up a command-only channel:
+                            <div class="command-block">
+                                /cleanup-enable #channel
+                            </div>
+                        </li>
+                        <li>Now the channel will automatically delete any messages that don't appear to be bot commands.</li>
+                        <li>To disable command-only mode:
+                            <div class="command-block">
+                                /cleanup-disable #channel
+                            </div>
+                        </li>
+                        <li>To see which channels have cleanup mode enabled:
+                            <div class="command-block">
+                                /cleanup-list
+                            </div>
+                        </li>
+                        <li>For more advanced configuration, you can customize the cleanup settings:
+                            <div class="command-block">
+                                /cleanup-settings #channel allowMedia:true ignorePrefix:"!"
+                            </div>
+                        </li>
+                    </ul>
+                    <div style="text-align: center; margin-top: 1.5rem;" class="btn-container">
+                        <a href="#channel-cleanup" class="btn btn-primary"><i class="fas fa-hashtag"></i> View Commands</a>
+                        <a href="#features" class="btn"><i class="fas fa-arrow-up"></i> Back to Features</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="usage-card">
+                <div class="usage-header">
+                    <h3><i class="fas fa-trash-alt"></i> Message Clearing Guide</h3>
+                </div>
+                <div class="usage-body">
+                    <p>Quickly remove multiple messages based on various criteria to keep your channels clean.</p>
+                    <ul class="usage-steps">
+                        <li>Ensure Dust Manager has the "Manage Messages" permission.</li>
+                        <li>To clear messages in a channel:
+                            <div class="command-block">
+                                /clear-channel #channel amount:50
+                            </div>
+                        </li>
+                        <li>To clear messages from a specific user:
+                            <div class="command-block">
+                                /clear-user @user amount:20
+                            </div>
+                        </li>
+                        <li>To clear messages containing specific text:
+                            <div class="command-block">
+                                /clear-contains text:"spam phrase" #channel amount:100
+                            </div>
+                        </li>
+                        <li>After execution, you'll receive a confirmation of how many messages were deleted.</li>
+                        <li>This feature is perfect for cleaning up after events, removing spam, or maintaining a tidy server.</li>
+                    </ul>
+                    <div style="text-align: center; margin-top: 1.5rem;" class="btn-container">
+                        <a href="#message-clearing" class="btn btn-primary"><i class="fas fa-eraser"></i> View Commands</a>
+                        <a href="#features" class="btn"><i class="fas fa-arrow-up"></i> Back to Features</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Reviews Section -->
+    <section class="reviews-section">
+        <div class="container">
+            <div class="section-header">
+                <h2>What Server Admins Say</h2>
+                <p>Don't just take our word for it - hear from Discord servers already using Dust Manager</p>
+            </div>
+            
+            <div class="reviews-grid">
+                <div class="review-card">
+                    <div class="review-stars">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <div class="review-content">
+                        "Dust Manager has transformed how we maintain our gaming community. The mass message clearing and channel cleanup features save us hours of moderation time each week. Absolutely essential for any active server."
+                    </div>
+                    <div class="review-author">
+                        <div class="author-avatar">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <div class="author-info">
+                            <h4>Alex M.</h4>
+                            <p>Gaming Community Owner (15K+ members)</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="review-card">
+                    <div class="review-stars">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <div class="review-content">
+                        "The member purge utility is exactly what our educational server needed. After each semester, we can easily remove inactive students and keep our server focused on current participants. Simple to use but powerful."
+                    </div>
+                    <div class="review-author">
+                        <div class="author-avatar">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <div class="author-info">
+                            <h4>Sarah J.</h4>
+                            <p>Educational Discord Admin</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="review-card">
+                    <div class="review-stars">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star-half-alt"></i>
+                    </div>
+                    <div class="review-content">
+                        "After a raid hit our community, Dust Manager's mass unban feature helped us recover quickly. We were able to unban legitimate users while keeping out the troublemakers. The confirmation system prevents mistakes, which is crucial for big operations."
+                    </div>
+                    <div class="review-author">
+                        <div class="author-avatar">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <div class="author-info">
+                            <h4>Miguel R.</h4>
+                            <p>Community Moderator</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Caution Section -->
+    <section class="caution-section">
+        <div class="container">
+            <div class="section-header">
+                <h2>Best Practices</h2>
+                <p>Important considerations when using powerful cleanup tools</p>
+            </div>
+            <div class="caution-card">
+                <div class="caution-header">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    <h3>Use With Caution</h3>
+                </div>
+                <div class="caution-body">
+                    <p>Dust Manager provides powerful tools that can make significant changes to your server. Please follow these best practices:</p>
+                    <ul class="caution-list">
+                        <li>Always double-check the confirmation messages before proceeding with mass actions.</li>
+                        <li>Restrict access to Dust Manager commands to trusted administrators only using the access control commands.</li>
+                        <li>Consider creating backups or logs before performing large-scale operations like mass unbans or member purges.</li>
+                        <li>Start with smaller test operations before performing server-wide changes.</li>
+                        <li>Mass unbans should be used carefully, especially if your server has experienced targeted raids.</li>
+                        <li>Remember that purged members will need a new invite to rejoin the server.</li>
+                        <li>Message clearing operations are permanent and cannot be undone.</li>
+                        <li>Set up proper role hierarchies to ensure only authorized personnel can use destructive commands.</li>
+                    </ul>
+                    <p>For additional guidance or support with using these features, join our <a href="https://discord.gg/Wc3tTz5UzW" target="_blank">support server</a>.</p>
+                    <div style="text-align: center; margin-top: 2rem;" class="btn-container">
+                        <a href="https://discord.gg/Wc3tTz5UzW" class="btn btn-primary" target="_blank"><i class="fas fa-headset"></i> Get Support</a>
+                        <a href="terms.html" class="btn"><i class="fas fa-file-contract"></i> Terms of Service</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="container">
+            <div class="cta-content">
+                <h2>Keep Your Discord Server Clean</h2>
+                <p>Add Dust Manager to your server today and simplify your moderation tasks.</p>
+                <div class="btn-container" style="justify-content: center; margin-top: 25px;">
+                    <a href="https://discord.com/oauth2/authorize?client_id=1352683077528195092" class="btn" target="_blank"><i class="fas fa-plus-circle"></i> Add to Discord</a>
+                    <a href="https://discord.gg/Wc3tTz5UzW" class="btn btn-accent" target="_blank"><i class="fas fa-headset"></i> Join Support Server</a>
+                    <a href="#features" class="btn"><i class="fas fa-arrow-up"></i> Back to Features</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-container">
+                <div class="footer-col">
+                    <h4>Utility Managers</h4>
+                    <p>A collection of powerful Discord bots designed to make server management easier and more efficient.</p>
+                    <div class="social-links">
+                        <a href="https://discord.gg/Wc3tTz5UzW" target="_blank"><i class="fab fa-discord"></i></a>
+                        <a href="https://twitter.com/UtilityManagers" target="_blank"><i class="fab fa-twitter"></i></a>
+                        <a href="https://github.com/UtilityManagers" target="_blank"><i class="fab fa-github"></i></a>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <h4>Our Bots</h4>
+                    <ul class="footer-links">
+                        <li><a href="security-manager.html"><i class="fas fa-angle-right"></i> Security Manager</a></li>
+                        <li><a href="role-manager.html"><i class="fas fa-angle-right"></i> Role Manager</a></li>
+                        <li><a href="dust-manager.html"><i class="fas fa-angle-right"></i> Dust Manager</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Legal</h4>
+                    <ul class="footer-links">
+                        <li><a href="terms.html"><i class="fas fa-angle-right"></i> Terms of Service</a></li>
+                        <li><a href="privacy.html"><i class="fas fa-angle-right"></i> Privacy Policy</a></li>
+                        <li><a href="data-security.html"><i class="fas fa-angle-right"></i> Data Security</a></li>
+                        <li><a href="compliance.html"><i class="fas fa-angle-right"></i> Compliance</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Support</h4>
+                    <ul class="footer-links">
+                        <li><a href="https://discord.gg/Wc3tTz5UzW" target="_blank"><i class="fas fa-angle-right"></i> Support Server</a></li>
+                        <li><a href="https://docs.utilitymanagers.com" target="_blank"><i class="fas fa-angle-right"></i> Documentation</a></li>
+                        <li><a href="faq.html"><i class="fas fa-angle-right"></i> FAQ</a></li>
+                        <li><a href="contact.html"><i class="fas fa-angle-right"></i> Contact Us</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; <script>document.write(new Date().getFullYear())</script> Utility Managers Bots. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Back to Top Button -->
+    <a href="#" class="back-to-top">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+
+    <!-- Quick Access Menu -->
+    <div class="quick-access">
+        <div class="quick-menu-toggle">
+            <i class="fas fa-plus"></i>
+        </div>
+        <div class="quick-menu">
+            <a href="index.html" class="quick-menu-item">
+                <i class="fas fa-home"></i> Home
+            </a>
+            <a href="security-manager.html" class="quick-menu-item">
+                <i class="fas fa-shield-alt"></i> Security Manager
+            </a>
+            <a href="role-manager.html" class="quick-menu-item">
+                <i class="fas fa-users-cog"></i> Role Manager
+            </a>
+            <a href="https://discord.gg/Wc3tTz5UzW" class="quick-menu-item" target="_blank">
+                <i class="fas fa-headset"></i> Support
+            </a>
+        </div>
+    </div>
+
+    <script>
+        // Mobile menu toggle
+        const mobileMenu = document.querySelector('.mobile-menu');
+        const navLinks = document.querySelector('.nav-links');
+        
+        mobileMenu.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+        });
+        
+        // Navbar scroll effect
+        window.addEventListener('scroll', () => {
+            const navbar = document.querySelector('.navbar');
+            const backToTop = document.querySelector('.back-to-top');
+            
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+                backToTop.classList.add('active');
+            } else {
+                navbar.classList.remove('scrolled');
+                backToTop.classList.remove('active');
+            }
+        });
+        
+        // Smooth scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                if (this.getAttribute('href') !== "#") {
+                    e.preventDefault();
+                    
+                    document.querySelector(this.getAttribute('href')).scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+        
+        // Tab functionality
+        const tabBtns = document.querySelectorAll('.tab-btn');
+        const tabContents = document.querySelectorAll('.tab-content');
+        
+        tabBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const tabId = btn.getAttribute('data-tab');
+                
+                // Remove active class from all buttons and contents
+                tabBtns.forEach(b => b.classList.remove('active'));
+                tabContents.forEach(c => c.classList.remove('active'));
+                
+                // Add active class to clicked button and corresponding content
+                btn.classList.add('active');
+                document.getElementById(`${tabId}-content`).classList.add('active');
+            });
+        });
+        
+        // Mobile dropdown toggle
+        if (window.innerWidth < 992) {
+            const dropdowns = document.querySelectorAll('.dropdown');
+            
+            dropdowns.forEach(dropdown => {
+                const link = dropdown.querySelector('a');
+                
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    dropdown.classList.toggle('active');
+                });
+            });
+        }
+
+        // Quick Access Menu
+        const quickMenuToggle = document.querySelector('.quick-menu-toggle');
+        const quickMenu = document.querySelector('.quick-menu');
+        
+        quickMenuToggle.addEventListener('click', () => {
+            quickMenu.classList.toggle('active');
+            quickMenuToggle.classList.toggle('active');
+        });
+    </script>
+</body>
+</html>
