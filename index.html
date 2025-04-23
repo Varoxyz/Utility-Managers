@@ -1371,8 +1371,7 @@
                     <p>A collection of powerful Discord bots designed to make server management easier and more efficient.</p>
                     <div class="social-links">
                         <a href="https://discord.gg/Wc3tTz5UzW" target="_blank"><i class="fab fa-discord"></i></a>
-                        <a href="#"><i class="fab fa-twitter"></i></a>
-                        <a href="#"><i class="fab fa-github"></i></a>
+                        <a href="https://github.com/Varoxyz" target="_blank"><i class="fab fa-github"></i></a>
                     </div>
                 </div>
                 <div class="footer-col">
@@ -1458,9 +1457,18 @@
                 if (this.getAttribute('href') !== "#") {
                     e.preventDefault();
                     
-                    document.querySelector(this.getAttribute('href')).scrollIntoView({
-                        behavior: 'smooth'
-                    });
+                    const targetId = this.getAttribute('href').substring(1);
+                    const targetElement = document.getElementById(targetId);
+                    
+                    if (targetElement) {
+                        // Get navbar height for offset
+                        const navbarHeight = document.querySelector('.navbar').offsetHeight;
+                        
+                        window.scrollTo({
+                            top: targetElement.offsetTop - navbarHeight - 20,
+                            behavior: 'smooth'
+                        });
+                    }
                 }
             });
         });
