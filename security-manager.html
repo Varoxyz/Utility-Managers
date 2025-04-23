@@ -164,7 +164,7 @@
         /* Hero Section */
         .hero {
             padding: 180px 0 100px;
-            background: linear-gradient(135deg, #4A78C3 0%, #2D4880 100%);
+            background: linear-gradient(135deg, var(--primary-light) 0%, var(--primary) 100%);
             color: var(--white);
             clip-path: polygon(0 0, 100% 0, 100% 85%, 0 100%);
             margin-bottom: 4rem;
@@ -284,7 +284,7 @@
 
         /* Privacy Banner */
         .privacy-banner {
-            background: linear-gradient(135deg, #2E4057 0%, #1D2B3A 100%);
+            background: linear-gradient(135deg, var(--primary-light) 0%, var(--primary) 100%);
             color: var(--white);
             padding: 3rem 0;
             text-align: center;
@@ -381,7 +381,7 @@
         }
 
         .ai-banner {
-            background: linear-gradient(135deg, #4A78C3 0%, #2D4880 100%);
+            background: linear-gradient(135deg, var(--primary-light) 0%, var(--primary) 100%);
             color: var(--white);
             padding: 2rem;
             border-radius: 10px;
@@ -625,72 +625,6 @@
             color: var(--primary-dark);
         }
 
-        /* Testimonials Section */
-        .testimonials-section {
-            padding: 5rem 0;
-            background: var(--light);
-        }
-
-        .testimonials-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-        }
-
-        .testimonial-card {
-            background: var(--white);
-            border-radius: 10px;
-            padding: 2rem;
-            box-shadow: var(--shadow);
-            transition: var(--transition);
-            height: 100%;
-        }
-
-        .testimonial-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
-        }
-
-        .testimonial-stars {
-            color: var(--accent);
-            font-size: 1.2rem;
-            margin-bottom: 1rem;
-        }
-
-        .testimonial-content {
-            font-style: italic;
-            margin-bottom: 1.5rem;
-            color: #666;
-        }
-
-        .testimonial-author {
-            display: flex;
-            align-items: center;
-        }
-
-        .testimonial-avatar {
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background-color: var(--primary-light);
-            color: var(--white);
-            font-size: 1.5rem;
-            margin-right: 1rem;
-        }
-
-        .testimonial-info h4 {
-            font-size: 1.1rem;
-            margin-bottom: 0.2rem;
-        }
-
-        .testimonial-info p {
-            font-size: 0.9rem;
-            color: #777;
-        }
-
         /* Availability Section */
         .availability-section {
             padding: 5rem 0;
@@ -839,7 +773,7 @@
         /* CTA Section */
         .cta-section {
             padding: 5rem 0;
-            background: linear-gradient(135deg, #4A78C3 0%, #2D4880 100%);
+            background: linear-gradient(135deg, var(--primary-light) 0%, var(--primary) 100%);
             color: var(--white);
             text-align: center;
             position: relative;
@@ -1226,7 +1160,6 @@
                     <div class="dropdown-content">
                         <a href="terms.html">Terms of Service</a>
                         <a href="privacy.html">Privacy Policy</a>
-                        <a href="data-security.html">Data Security</a>
                     </div>
                 </li>
                 <li><a href="https://discord.gg/Wc3tTz5UzW" target="_blank">Support</a></li>
@@ -1505,84 +1438,6 @@
         </div>
     </section>
 
-    <!-- Testimonials Section -->
-    <section class="testimonials-section">
-        <div class="container">
-            <div class="section-header">
-                <h2>What Server Owners Say</h2>
-                <p>Hear from Discord communities already protected by Security Manager</p>
-            </div>
-            
-            <div class="testimonials-grid">
-                <div class="testimonial-card">
-                    <div class="testimonial-stars">
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                    </div>
-                    <div class="testimonial-content">
-                        "After experiencing multiple raid attempts on our gaming community, we installed Security Manager. The difference was immediate - the AI detected and stopped a coordinated raid within seconds, before any damage could be done. We've been raid-free for months now!"
-                    </div>
-                    <div class="testimonial-author">
-                        <div class="testimonial-avatar">
-                            <i class="fas fa-user"></i>
-                        </div>
-                        <div class="testimonial-info">
-                            <h4>Alex M.</h4>
-                            <p>Gaming Community (30K+ members)</p>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="testimonial-card">
-                    <div class="testimonial-stars">
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                    </div>
-                    <div class="testimonial-content">
-                        "The AI spam detection is incredible. It catches sophisticated spam messages that our previous bot would miss, while allowing normal conversation to continue uninterrupted. The setup process was smooth and the support team was extremely helpful with customizing settings."
-                    </div>
-                    <div class="testimonial-author">
-                        <div class="testimonial-avatar">
-                            <i class="fas fa-user"></i>
-                        </div>
-                        <div class="testimonial-info">
-                            <h4>Sarah J.</h4>
-                            <p>Community Director</p>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="testimonial-card">
-                    <div class="testimonial-stars">
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star-half-alt"></i>
-                    </div>
-                    <div class="testimonial-content">
-                        "As the owner of a large tech community, security is our top priority. Security Manager not only provides excellent protection but also gives us detailed analytics that helped us identify and address vulnerabilities. It's like having an expert security team watching 24/7."
-                    </div>
-                    <div class="testimonial-author">
-                        <div class="testimonial-avatar">
-                            <i class="fas fa-user"></i>
-                        </div>
-                        <div class="testimonial-info">
-                            <h4>Miguel R.</h4>
-                            <p>Tech Community Founder</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
     <!-- Availability Section -->
     <section class="availability-section" id="availability">
         <div class="container">
@@ -1709,8 +1564,8 @@
                     <p>A collection of powerful Discord bots designed to make server management easier and more efficient.</p>
                     <div class="social-links">
                         <a href="https://discord.gg/Wc3tTz5UzW" target="_blank"><i class="fab fa-discord"></i></a>
-                        <a href="https://twitter.com/UtilityManagers" target="_blank"><i class="fab fa-twitter"></i></a>
-                        <a href="https://github.com/UtilityManagers" target="_blank"><i class="fab fa-github"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-github"></i></a>
                     </div>
                 </div>
                 <div class="footer-col">
@@ -1726,17 +1581,12 @@
                     <ul class="footer-links">
                         <li><a href="terms.html"><i class="fas fa-angle-right"></i> Terms of Service</a></li>
                         <li><a href="privacy.html"><i class="fas fa-angle-right"></i> Privacy Policy</a></li>
-                        <li><a href="data-security.html"><i class="fas fa-angle-right"></i> Data Security</a></li>
-                        <li><a href="compliance.html"><i class="fas fa-angle-right"></i> Compliance</a></li>
                     </ul>
                 </div>
                 <div class="footer-col">
                     <h4>Support</h4>
                     <ul class="footer-links">
                         <li><a href="https://discord.gg/Wc3tTz5UzW" target="_blank"><i class="fas fa-angle-right"></i> Support Server</a></li>
-                        <li><a href="https://docs.utilitymanagers.com" target="_blank"><i class="fas fa-angle-right"></i> Documentation</a></li>
-                        <li><a href="faq.html"><i class="fas fa-angle-right"></i> FAQ</a></li>
-                        <li><a href="contact.html"><i class="fas fa-angle-right"></i> Contact Us</a></li>
                     </ul>
                 </div>
             </div>
