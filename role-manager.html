@@ -6,6 +6,7 @@
     <title>Role Manager - Advanced Discord Role Management Bot</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
+        /* CSS remains the same as in the original file */
         :root {
             --primary: #6D94D7;
             --primary-dark: #5575b7;
@@ -1157,7 +1158,7 @@
                     <p>Automatically assign roles to new members when they join your server. Set up multiple auto roles to instantly give new members the permissions they need.</p>
                     <p>Perfect for welcome roles, verification tiers, or basic permission sets that all new members should receive upon joining your community.</p>
                     <div class="btn-container">
-                        <a href="#auto-role" class="btn btn-primary"><i class="fas fa-user-plus"></i> View Commands</a>
+                        <a href="#auto-role-content" class="btn btn-primary"><i class="fas fa-user-plus"></i> View Commands</a>
                         <a href="#examples" class="btn"><i class="fas fa-book"></i> Usage Guide</a>
                     </div>
                 </div>
@@ -1174,7 +1175,7 @@
                     <p>Make roles permanent for your members, even if they leave and rejoin. Role Manager remembers which roles users had and automatically reassigns them when they return to your server.</p>
                     <p>This prevents role loss during temporary absences and provides consistent user experiences across your Discord community.</p>
                     <div class="btn-container">
-                        <a href="#role-persistence" class="btn btn-primary"><i class="fas fa-history"></i> View Commands</a>
+                        <a href="#role-persistence-content" class="btn btn-primary"><i class="fas fa-history"></i> View Commands</a>
                         <a href="#examples" class="btn"><i class="fas fa-book"></i> Usage Guide</a>
                     </div>
                 </div>
@@ -1187,7 +1188,7 @@
                     <h3>Role Combiner</h3>
                     <p>Create conditional role combinations that automatically add or remove roles based on other role assignments. Define rules like "if user has role X, give them role Y" or "if user gets role A, remove role B".</p>
                     <div class="btn-container">
-                        <a href="#role-combiner" class="btn btn-primary"><i class="fas fa-random"></i> View Commands</a>
+                        <a href="#role-combiner-content" class="btn btn-primary"><i class="fas fa-random"></i> View Commands</a>
                     </div>
                 </div>
                 <div class="feature-card">
@@ -1197,7 +1198,7 @@
                     <h3>Role Sync</h3>
                     <p>Synchronize roles between different Discord servers where Role Manager is installed. Keep role assignments consistent across your Discord network or partner servers.</p>
                     <div class="btn-container">
-                        <a href="#role-sync" class="btn btn-primary"><i class="fas fa-sync-alt"></i> View Commands</a>
+                        <a href="#role-sync-content" class="btn btn-primary"><i class="fas fa-sync-alt"></i> View Commands</a>
                     </div>
                 </div>
                 <div class="feature-card">
@@ -1207,7 +1208,7 @@
                     <h3>Blocked Roles</h3>
                     <p>Prevent specific roles from being assigned to users or groups. Create role exclusion rules to maintain proper role hierarchy and prevent permission conflicts.</p>
                     <div class="btn-container">
-                        <a href="#blocked-roles" class="btn btn-primary"><i class="fas fa-ban"></i> View Commands</a>
+                        <a href="#blocked-roles-content" class="btn btn-primary"><i class="fas fa-ban"></i> View Commands</a>
                     </div>
                 </div>
                 <div class="feature-card">
@@ -1217,7 +1218,7 @@
                     <h3>Mass Role Assignment</h3>
                     <p>Assign roles to multiple users at once. Target all server members or specific groups based on existing roles, activity, join date, and more.</p>
                     <div class="btn-container">
-                        <a href="#mass-roles" class="btn btn-primary"><i class="fas fa-users-cog"></i> View Commands</a>
+                        <a href="#mass-roles-content" class="btn btn-primary"><i class="fas fa-users-cog"></i> View Commands</a>
                     </div>
                 </div>
                 <div class="feature-card">
@@ -1227,7 +1228,7 @@
                     <h3>Access Control</h3>
                     <p>Control which roles can use Role Manager commands. Restrict sensitive role operations to trusted administrators while allowing moderators to handle routine tasks.</p>
                     <div class="btn-container">
-                        <a href="#access-control" class="btn btn-primary"><i class="fas fa-key"></i> View Commands</a>
+                        <a href="#access-control-content" class="btn btn-primary"><i class="fas fa-key"></i> View Commands</a>
                     </div>
                 </div>
                 <div class="feature-card">
@@ -1273,15 +1274,15 @@
                         <div class="command-list">
                             <div class="command-item">
                                 <div class="command-name">/autorole-add @role</div>
-                                <div class="command-desc">Add an auto-assigned role to new members</div>
+                                <div class="command-desc">Add an auto-assigned role to new members when they join the server</div>
                             </div>
                             <div class="command-item">
                                 <div class="command-name">/autorole-remove @role</div>
-                                <div class="command-desc">Remove a role from auto assignment</div>
+                                <div class="command-desc">Remove a role from auto assignment when new members join</div>
                             </div>
                             <div class="command-item">
                                 <div class="command-name">/autorole-list</div>
-                                <div class="command-desc">List all auto roles</div>
+                                <div class="command-desc">List all roles that are automatically assigned to new members</div>
                             </div>
                         </div>
                     </div>
@@ -1293,16 +1294,16 @@
                         <h4><i class="fas fa-history"></i> Role Persistence Commands</h4>
                         <div class="command-list">
                             <div class="command-item">
-                                <div class="command-name">/rolepersist-add @role</div>
-                                <div class="command-desc">Make roles permanent for users</div>
+                                <div class="command-name">/rolepersist-add @user @role</div>
+                                <div class="command-desc">Make roles permanent for specific users even if they leave and rejoin</div>
                             </div>
                             <div class="command-item">
-                                <div class="command-name">/rolepersist-remove @role</div>
-                                <div class="command-desc">Remove protected role status</div>
+                                <div class="command-name">/rolepersist-remove @user @role</div>
+                                <div class="command-desc">Remove persistence for a specific role for a user</div>
                             </div>
                             <div class="command-item">
                                 <div class="command-name">/rolepersist-list</div>
-                                <div class="command-desc">Show roles that persist when members rejoin</div>
+                                <div class="command-desc">Show all persistent role assignments in the server</div>
                             </div>
                         </div>
                     </div>
@@ -1314,16 +1315,16 @@
                         <h4><i class="fas fa-random"></i> Role Combiner Commands</h4>
                         <div class="command-list">
                             <div class="command-item">
-                                <div class="command-name">/rolecombiner-add</div>
-                                <div class="command-desc">Create a persistent role dependency</div>
+                                <div class="command-name">/rolecombiner-add @trigger-role @target-role Mode</div>
+                                <div class="command-desc">Create a role dependency where having one role affects another. Mode can be ADD or REMOVE</div>
                             </div>
                             <div class="command-item">
-                                <div class="command-name">/rolecombiner-remove</div>
-                                <div class="command-desc">Remove a role combination</div>
+                                <div class="command-name">/rolecombiner-remove @trigger-role @target-role Mode</div>
+                                <div class="command-desc">Remove a previously created role combination rule</div>
                             </div>
                             <div class="command-item">
                                 <div class="command-name">/rolecombiner-list</div>
-                                <div class="command-desc">List role combinations</div>
+                                <div class="command-desc">List all configured role combination rules</div>
                             </div>
                         </div>
                     </div>
@@ -1335,16 +1336,16 @@
                         <h4><i class="fas fa-sync-alt"></i> Role Sync Commands</h4>
                         <div class="command-list">
                             <div class="command-item">
-                                <div class="command-name">/rolesync-add</div>
-                                <div class="command-desc">Sync roles between servers</div>
+                                <div class="command-name">/rolesync-add @local-role Server @remote-role Mode</div>
+                                <div class="command-desc">Sync roles between different servers where Role Manager is installed</div>
                             </div>
                             <div class="command-item">
-                                <div class="command-name">/rolesync-remove</div>
-                                <div class="command-desc">Remove role sync</div>
+                                <div class="command-name">/rolesync-remove @local-role Server @remote-role Mode</div>
+                                <div class="command-desc">Remove a previously created cross-server role sync</div>
                             </div>
                             <div class="command-item">
                                 <div class="command-name">/rolesync-list</div>
-                                <div class="command-desc">List all role syncs</div>
+                                <div class="command-desc">List all configured cross-server role syncs</div>
                             </div>
                         </div>
                     </div>
@@ -1356,16 +1357,16 @@
                         <h4><i class="fas fa-ban"></i> Blocked Roles Commands</h4>
                         <div class="command-list">
                             <div class="command-item">
-                                <div class="command-name">/blockrole-add</div>
-                                <div class="command-desc">Block a role from being assigned</div>
+                                <div class="command-name">/blockrole-add @role @allowed-role</div>
+                                <div class="command-desc">Block a role from being assigned except to users with a specific allowed role</div>
                             </div>
                             <div class="command-item">
-                                <div class="command-name">/blockrole-remove</div>
-                                <div class="command-desc">Remove a role from blocked list</div>
+                                <div class="command-name">/blockrole-remove @role</div>
+                                <div class="command-desc">Remove a role from the blocked list</div>
                             </div>
                             <div class="command-item">
                                 <div class="command-name">/blockrole-list</div>
-                                <div class="command-desc">List blocked roles</div>
+                                <div class="command-desc">List all currently blocked roles and their exceptions</div>
                             </div>
                         </div>
                     </div>
@@ -1377,20 +1378,20 @@
                         <h4><i class="fas fa-users-cog"></i> Mass Roles Commands</h4>
                         <div class="command-list">
                             <div class="command-item">
-                                <div class="command-name">/add-role</div>
-                                <div class="command-desc">Add a role to multiple members</div>
+                                <div class="command-name">/add-role @role @filter-role</div>
+                                <div class="command-desc">Add a role to all members who have a specific filter role</div>
                             </div>
                             <div class="command-item">
-                                <div class="command-name">/remove-role</div>
-                                <div class="command-desc">Remove a role from multiple members</div>
+                                <div class="command-name">/remove-role @role @filter-role</div>
+                                <div class="command-desc">Remove a role from all members who have a specific filter role</div>
                             </div>
                             <div class="command-item">
-                                <div class="command-name">/swap-roles</div>
-                                <div class="command-desc">Replace one role with another</div>
+                                <div class="command-name">/swap-roles @remove @add</div>
+                                <div class="command-desc">Replace one role with another for all members who have it</div>
                             </div>
                             <div class="command-item">
                                 <div class="command-name">/role-cancel</div>
-                                <div class="command-desc">Cancel ongoing role operations</div>
+                                <div class="command-desc">Cancel any ongoing role operations</div>
                             </div>
                         </div>
                     </div>
@@ -1402,16 +1403,16 @@
                         <h4><i class="fas fa-lock"></i> Access Control Commands</h4>
                         <div class="command-list">
                             <div class="command-item">
-                                <div class="command-name">/access-grant</div>
-                                <div class="command-desc">Grant command access to a role</div>
+                                <div class="command-name">/access-grant @role Category</div>
+                                <div class="command-desc">Grant command access to a role for specific category of commands</div>
                             </div>
                             <div class="command-item">
-                                <div class="command-name">/access-revoke</div>
-                                <div class="command-desc">Revoke command access</div>
+                                <div class="command-name">/access-revoke @role Category</div>
+                                <div class="command-desc">Revoke command access from a role</div>
                             </div>
                             <div class="command-item">
                                 <div class="command-name">/access-list</div>
-                                <div class="command-desc">List command access permissions</div>
+                                <div class="command-desc">List all command access permissions</div>
                             </div>
                         </div>
                     </div>
@@ -1439,11 +1440,11 @@
                             <li>Set it as an auto role with <code>/autorole-add @New Member</code></li>
                             <li>Create a "Verified" role with standard permissions</li>
                             <li>When members verify, give them the Verified role</li>
-                            <li>Use <code>/rolecombiner-add</code> to automatically remove New Member role when Verified is assigned</li>
+                            <li>Use <code>/rolecombiner-add @Verified @New Member REMOVE</code> to automatically remove New Member role when Verified is assigned</li>
                         </ul>
                         <div class="btn-container">
-                            <a href="#auto-role" class="btn btn-primary"><i class="fas fa-user-plus"></i> View Auto Role Commands</a>
-                            <a href="#role-combiner" class="btn"><i class="fas fa-random"></i> View Role Combiner</a>
+                            <a href="#auto-role-content" class="btn btn-primary"><i class="fas fa-user-plus"></i> View Auto Role Commands</a>
+                            <a href="#role-combiner-content" class="btn"><i class="fas fa-random"></i> View Role Combiner</a>
                         </div>
                     </div>
                 </div>
@@ -1456,12 +1457,12 @@
                         <ul class="example-steps">
                             <li>Add Role Manager to both your main and secondary servers</li>
                             <li>Create matching roles in each server (e.g., "Supporter")</li>
-                            <li>Use <code>/rolesync-add</code> to link the roles between servers</li>
+                            <li>Use <code>/rolesync-add @Supporter ServerID @SupporterRemote ADD</code> to link the roles between servers</li>
                             <li>Members who receive the role in one server will automatically get it in the other</li>
                             <li>Perfect for multi-server communities or partner networks</li>
                         </ul>
                         <div class="btn-container">
-                            <a href="#role-sync" class="btn btn-primary"><i class="fas fa-sync-alt"></i> View Role Sync Commands</a>
+                            <a href="#role-sync-content" class="btn btn-primary"><i class="fas fa-sync-alt"></i> View Role Sync Commands</a>
                         </div>
                     </div>
                 </div>
@@ -1474,13 +1475,13 @@
                         <ul class="example-steps">
                             <li>Create an "Event Participant" role for a special server event</li>
                             <li>During event signup, assign this role to interested members</li>
-                            <li>Use <code>/rolepersist-add @Event Participant</code> to make it persistent</li>
-                            <li>After the event, use <code>/remove-role @Event Participant</code></li>
-                            <li>For returning events, previous participants will automatically get their roles back</li>
+                            <li>Use <code>/rolepersist-add @User @Event Participant</code> to make it persistent for key members</li>
+                            <li>After the event, use <code>/remove-role @Event Participant</code> from regular participants</li>
+                            <li>For returning events, members with persistent roles will keep their status</li>
                         </ul>
                         <div class="btn-container">
-                            <a href="#role-persistence" class="btn btn-primary"><i class="fas fa-history"></i> View Persistence Commands</a>
-                            <a href="#mass-roles" class="btn"><i class="fas fa-users-cog"></i> View Mass Role Commands</a>
+                            <a href="#role-persistence-content" class="btn btn-primary"><i class="fas fa-history"></i> View Persistence Commands</a>
+                            <a href="#mass-roles-content" class="btn"><i class="fas fa-users-cog"></i> View Mass Role Commands</a>
                         </div>
                     </div>
                 </div>
@@ -1512,8 +1513,7 @@
                     <p>A collection of powerful Discord bots designed to make server management easier and more efficient.</p>
                     <div class="social-links">
                         <a href="https://discord.gg/Wc3tTz5UzW" target="_blank"><i class="fab fa-discord"></i></a>
-                        <a href="#"><i class="fab fa-twitter"></i></a>
-                        <a href="#"><i class="fab fa-github"></i></a>
+                        <a href="https://github.com/Varoxyz" target="_blank"><i class="fab fa-github"></i></a>
                     </div>
                 </div>
                 <div class="footer-col">
@@ -1593,15 +1593,24 @@
             }
         });
         
-        // Smooth scroll
+        // Smooth scroll for all internal links
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 if (this.getAttribute('href') !== "#") {
                     e.preventDefault();
                     
-                    document.querySelector(this.getAttribute('href')).scrollIntoView({
-                        behavior: 'smooth'
-                    });
+                    const targetId = this.getAttribute('href').substring(1);
+                    const targetElement = document.getElementById(targetId);
+                    
+                    if (targetElement) {
+                        // Get the height of the navbar to offset scrolling
+                        const navbarHeight = document.querySelector('.navbar').offsetHeight;
+                        
+                        window.scrollTo({
+                            top: targetElement.offsetTop - navbarHeight - 20,
+                            behavior: 'smooth'
+                        });
+                    }
                 }
             });
         });
