@@ -1,0 +1,1829 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Role Manager - Advanced Discord Role Management Bot</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #6D94D7;
+            --primary-dark: #5575b7;
+            --primary-light: #8eaee2;
+            --accent: #F6B352;
+            --dark: #2E4057;
+            --light: #F8F9FA;
+            --gray: #E9ECEF;
+            --white: #FFFFFF;
+            --shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.7;
+            color: var(--dark);
+            background-color: var(--light);
+            overflow-x: hidden;
+        }
+
+        /* Navigation */
+        .navbar {
+            background: var(--white);
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            box-shadow: var(--shadow);
+            padding: 1rem 0;
+            transition: var(--transition);
+        }
+
+        .navbar.scrolled {
+            padding: 0.5rem 0;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            transition: var(--transition);
+        }
+
+        .logo:hover {
+            color: var(--primary-dark);
+        }
+
+        .logo i {
+            font-size: 1.5em;
+            margin-right: 10px;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+
+        .nav-links li {
+            margin-left: 2rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: var(--transition);
+            position: relative;
+        }
+
+        .nav-links a:after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: -5px;
+            width: 0;
+            height: 3px;
+            background-color: var(--primary);
+            transition: var(--transition);
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        .nav-links a:hover:after {
+            width: 100%;
+        }
+
+        .dropdown {
+            position: relative;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background: var(--white);
+            min-width: 200px;
+            box-shadow: var(--shadow);
+            border-radius: 8px;
+            overflow: hidden;
+            z-index: 1001;
+            transform: translateY(10px);
+            transition: var(--transition);
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+            transform: translateY(0);
+        }
+
+        .dropdown-content a {
+            display: block;
+            padding: 12px 16px;
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 500;
+            transition: var(--transition);
+        }
+
+        .dropdown-content a:hover {
+            background-color: var(--primary-light);
+            color: var(--white);
+        }
+
+        .mobile-menu {
+            display: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 180px 0 100px;
+            background: linear-gradient(135deg, #6089CF 0%, #3A62A0 100%);
+            color: var(--white);
+            clip-path: polygon(0 0, 100% 0, 100% 85%, 0 100%);
+            margin-bottom: 4rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100'%3E%3Cg fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.1'%3E%3Cpath opacity='.5' d='M96 95h4v1h-4v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9zm-1 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-9-10h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm9-10v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-9-10h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm9-10v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-9-10h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+            opacity: 0.1;
+        }
+
+        .hero-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: relative;
+        }
+
+        .hero-content {
+            flex: 1;
+            padding-right: 2rem;
+        }
+
+        .hero-icon {
+            flex: 1;
+            text-align: center;
+            animation: float 4s ease-in-out infinite;
+        }
+
+        .hero-icon i {
+            font-size: 15rem;
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(0px);
+            }
+            50% {
+                transform: translateY(-20px);
+            }
+            100% {
+                transform: translateY(0px);
+            }
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            line-height: 1.2;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+
+        .btn-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 12px 30px;
+            background: var(--white);
+            color: var(--primary);
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+            transition: var(--transition);
+            box-shadow: var(--shadow);
+            min-width: 180px;
+            text-align: center;
+        }
+
+        .btn i {
+            margin-right: 8px;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .btn-accent {
+            background: var(--accent);
+            color: var(--white);
+        }
+
+        .btn-accent:hover {
+            background: #e9a847;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: var(--white);
+        }
+
+        .btn-primary:hover {
+            background: var(--primary-dark);
+        }
+
+        /* Privacy Banner */
+        .privacy-banner {
+            background: linear-gradient(135deg, #2E4057 0%, #1D2B3A 100%);
+            color: var(--white);
+            padding: 3rem 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            margin-bottom: 5rem;
+        }
+
+        .privacy-banner:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+            opacity: 0.1;
+        }
+
+        .privacy-content {
+            position: relative;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .privacy-content h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .privacy-content p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+
+        .privacy-badges {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 2rem;
+        }
+
+        .privacy-badge {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 0.8rem 1.5rem;
+            border-radius: 50px;
+            display: flex;
+            align-items: center;
+            font-weight: 600;
+            font-size: 1rem;
+        }
+
+        .privacy-badge i {
+            margin-right: 10px;
+            font-size: 1.2rem;
+        }
+
+        /* Features Section */
+        .features-section {
+            padding: 5rem 0;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .section-header h2 {
+            font-size: 2.5rem;
+            color: var(--dark);
+            margin-bottom: 1rem;
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-header h2:after {
+            content: '';
+            position: absolute;
+            left: 50%;
+            bottom: -10px;
+            width: 50px;
+            height: 4px;
+            background: var(--primary);
+            transform: translateX(-50%);
+        }
+
+        .section-header p {
+            color: #777;
+            font-size: 1.1rem;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .features-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 4rem;
+        }
+
+        .features-content {
+            flex: 1;
+            min-width: 300px;
+            padding-right: 2rem;
+        }
+
+        .features-content h3 {
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            color: var(--primary-dark);
+        }
+
+        .features-icon {
+            flex: 1;
+            min-width: 300px;
+            text-align: center;
+        }
+
+        .features-icon i {
+            font-size: 10rem;
+            color: var(--primary-light);
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .feature-card {
+            background: var(--white);
+            border-radius: 10px;
+            padding: 2rem;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .feature-icon {
+            font-size: 3rem;
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+
+        .feature-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--dark);
+            text-align: center;
+        }
+
+        .feature-card p {
+            color: #666;
+            margin-bottom: 1.5rem;
+            flex: 1;
+        }
+
+        .feature-card .btn-container {
+            margin-top: auto;
+            display: flex;
+            justify-content: center;
+        }
+
+        /* Commands Section */
+        .commands-section {
+            padding: 5rem 0;
+            background: var(--light);
+        }
+
+        .commands-container {
+            background: var(--white);
+            border-radius: 10px;
+            box-shadow: var(--shadow);
+            overflow: hidden;
+        }
+
+        .commands-header {
+            background: var(--primary);
+            color: var(--white);
+            padding: 2rem;
+            text-align: center;
+            position: relative;
+        }
+
+        .commands-header:before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0) 80%);
+            transform: rotate(30deg);
+        }
+
+        .commands-header h3 {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+            position: relative;
+        }
+
+        .commands-tabs {
+            display: flex;
+            overflow-x: auto;
+            background: var(--gray);
+            padding: 1rem;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+
+        .tab-btn {
+            padding: 0.8rem 1.5rem;
+            background: var(--white);
+            border: none;
+            border-radius: 30px;
+            margin-right: 1rem;
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--dark);
+            cursor: pointer;
+            transition: var(--transition);
+            white-space: nowrap;
+        }
+
+        .tab-btn:last-child {
+            margin-right: 0;
+        }
+
+        .tab-btn.active {
+            background: var(--primary);
+            color: var(--white);
+        }
+
+        .tab-content {
+            padding: 2rem;
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        .command-group {
+            margin-bottom: 2rem;
+        }
+
+        .command-group:last-child {
+            margin-bottom: 0;
+        }
+
+        .command-group h4 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--primary-dark);
+            display: flex;
+            align-items: center;
+        }
+
+        .command-group h4 i {
+            margin-right: 10px;
+            width: 30px;
+            height: 30px;
+            background: var(--primary-light);
+            color: var(--white);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.9rem;
+        }
+
+        .command-list {
+            background: var(--light);
+            border-radius: 10px;
+            padding: 1.5rem;
+            border-left: 4px solid var(--primary);
+        }
+
+        .command-item {
+            display: flex;
+            margin-bottom: 1rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        .command-item:last-child {
+            margin-bottom: 0;
+            padding-bottom: 0;
+            border-bottom: none;
+        }
+
+        .command-name {
+            font-family: monospace;
+            background: var(--dark);
+            color: var(--white);
+            padding: 0.2rem 0.5rem;
+            border-radius: 4px;
+            font-size: 0.9rem;
+            flex: 1;
+        }
+
+        .command-desc {
+            flex: 2;
+            padding-left: 1rem;
+        }
+
+        /* Examples Section */
+        .examples-section {
+            padding: 5rem 0;
+        }
+
+        .examples-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .example-card {
+            background: var(--white);
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .example-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .example-icon {
+            background: var(--primary);
+            color: var(--white);
+            height: 150px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .example-icon i {
+            font-size: 5rem;
+        }
+
+        .example-content {
+            padding: 2rem;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .example-content h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--primary-dark);
+        }
+
+        .example-steps {
+            list-style: none;
+            counter-reset: steps;
+            margin-bottom: 1.5rem;
+            flex: 1;
+        }
+
+        .example-steps li {
+            margin-bottom: 1rem;
+            position: relative;
+            padding-left: 2.5rem;
+        }
+
+        .example-steps li:before {
+            counter-increment: steps;
+            content: counter(steps);
+            position: absolute;
+            left: 0;
+            top: 2px;
+            width: 25px;
+            height: 25px;
+            background: var(--primary);
+            color: var(--white);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .example-card .btn-container {
+            margin-top: auto;
+            display: flex;
+            justify-content: center;
+        }
+
+        /* Testimonials Section */
+        .testimonials-section {
+            padding: 5rem 0;
+            background: var(--light);
+        }
+
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .testimonial-card {
+            background: var(--white);
+            border-radius: 10px;
+            padding: 2rem;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            height: 100%;
+        }
+
+        .testimonial-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .testimonial-stars {
+            color: var(--accent);
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+        }
+
+        .testimonial-content {
+            font-style: italic;
+            margin-bottom: 1.5rem;
+            color: #666;
+        }
+
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+        }
+
+        .testimonial-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: var(--primary-light);
+            color: var(--white);
+            font-size: 1.5rem;
+            margin-right: 1rem;
+        }
+
+        .testimonial-info h4 {
+            font-size: 1.1rem;
+            margin-bottom: 0.2rem;
+        }
+
+        .testimonial-info p {
+            font-size: 0.9rem;
+            color: #777;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            padding: 5rem 0;
+            background: linear-gradient(135deg, #6089CF 0%, #3A62A0 100%);
+            color: var(--white);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-section:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+            opacity: 0.1;
+        }
+
+        .cta-content {
+            position: relative;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .cta-content h2 {
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .cta-content p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+
+        .cta-content .btn-container {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--dark);
+            color: var(--light);
+            padding: 4rem 0 2rem;
+        }
+
+        .footer-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-bottom: 3rem;
+        }
+
+        .footer-col h4 {
+            font-size: 1.3rem;
+            margin-bottom: 1.5rem;
+            position: relative;
+            padding-bottom: 0.5rem;
+        }
+
+        .footer-col h4:after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 30px;
+            height: 3px;
+            background: var(--primary);
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 1rem;
+        }
+
+        .footer-links a {
+            color: var(--light);
+            text-decoration: none;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+        }
+
+        .footer-links a i {
+            margin-right: 10px;
+            font-size: 0.8rem;
+        }
+
+        .footer-links a:hover {
+            color: var(--primary);
+            padding-left: 5px;
+        }
+
+        .social-links {
+            display: flex;
+            margin-top: 1.5rem;
+        }
+
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--white);
+            margin-right: 1rem;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .social-links a:hover {
+            background: var(--primary);
+            transform: translateY(-3px);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        /* Back to top button */
+        .back-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: var(--primary);
+            color: var(--white);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            opacity: 0;
+            visibility: hidden;
+            z-index: 999;
+        }
+
+        .back-to-top.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .back-to-top:hover {
+            background: var(--primary-dark);
+            transform: translateY(-5px);
+        }
+
+        /* Quick Access Floating Menu */
+        .quick-access {
+            position: fixed;
+            left: 30px;
+            bottom: 30px;
+            z-index: 998;
+        }
+
+        .quick-menu-toggle {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: var(--primary);
+            color: var(--white);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            box-shadow: var(--shadow);
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .quick-menu-toggle:hover {
+            transform: rotate(45deg);
+            background: var(--primary-dark);
+        }
+
+        .quick-menu {
+            position: absolute;
+            bottom: 70px;
+            left: 0;
+            background: var(--white);
+            border-radius: 10px;
+            box-shadow: var(--shadow);
+            width: 200px;
+            padding: 1rem 0;
+            transform: translateY(20px);
+            opacity: 0;
+            visibility: hidden;
+            transition: var(--transition);
+        }
+
+        .quick-menu.active {
+            transform: translateY(0);
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .quick-menu-item {
+            padding: 0.8rem 1.5rem;
+            display: flex;
+            align-items: center;
+            color: var(--dark);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .quick-menu-item:hover {
+            background: var(--primary-light);
+            color: var(--white);
+        }
+
+        .quick-menu-item i {
+            margin-right: 10px;
+            width: 20px;
+            text-align: center;
+        }
+
+        /* Responsive */
+        @media (max-width: 992px) {
+            .hero-container {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .hero-content {
+                padding-right: 0;
+                margin-bottom: 3rem;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .navbar {
+                padding: 1rem 0;
+            }
+
+            .navbar.scrolled {
+                padding: 1rem 0;
+            }
+
+            .mobile-menu {
+                display: block;
+            }
+
+            .nav-links {
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: var(--white);
+                flex-direction: column;
+                text-align: center;
+                padding: 1rem 0;
+                box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+                clip-path: polygon(0 0, 100% 0, 100% 0, 0 0);
+                transition: var(--transition);
+            }
+
+            .nav-links.active {
+                clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+            }
+
+            .nav-links li {
+                margin: 1rem 0;
+            }
+
+            .dropdown-content {
+                position: static;
+                box-shadow: none;
+                background: var(--gray);
+                display: none;
+                transform: none;
+            }
+
+            .dropdown.active .dropdown-content {
+                display: block;
+            }
+
+            .features-container {
+                flex-direction: column;
+            }
+
+            .features-content, .features-icon {
+                width: 100%;
+                padding-right: 0;
+                margin-bottom: 2rem;
+            }
+
+            .commands-tabs {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .tab-btn {
+                margin-bottom: 1rem;
+            }
+
+            .command-item {
+                flex-direction: column;
+            }
+
+            .command-name {
+                margin-bottom: 0.5rem;
+            }
+
+            .command-desc {
+                padding-left: 0;
+            }
+
+            .btn-container {
+                justify-content: center;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .section-header h2 {
+                font-size: 2rem;
+            }
+
+            .feature-card h3 {
+                font-size: 1.5rem;
+            }
+
+            .cta-content h2 {
+                font-size: 2rem;
+            }
+
+            .btn-container {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .btn {
+                width: 100%;
+                max-width: 300px;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .feature-card, .example-card {
+                padding: 1.5rem;
+            }
+            
+            .quick-access {
+                left: 20px;
+                bottom: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container nav-container">
+            <a href="index.html" class="logo">
+                <i class="fas fa-sailboat"></i>
+                Utility Managers
+            </a>
+            <div class="mobile-menu">
+                <i class="fas fa-bars"></i>
+            </div>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li class="dropdown">
+                    <a href="#bots">Our Bots <i class="fas fa-chevron-down"></i></a>
+                    <div class="dropdown-content">
+                        <a href="security-manager.html">Security Manager</a>
+                        <a href="role-manager.html">Role Manager</a>
+                        <a href="dust-manager.html">Dust Manager</a>
+                    </div>
+                </li>
+                <li><a href="#features">Features</a></li>
+                <li><a href="#commands">Commands</a></li>
+                <li><a href="#examples">Examples</a></li>
+                <li class="dropdown">
+                    <a href="#">Legal <i class="fas fa-chevron-down"></i></a>
+                    <div class="dropdown-content">
+                        <a href="terms.html">Terms of Service</a>
+                        <a href="privacy.html">Privacy Policy</a>
+                        <a href="data-security.html">Data Security</a>
+                    </div>
+                </li>
+                <li><a href="https://discord.gg/Wc3tTz5UzW" target="_blank">Support</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container hero-container">
+            <div class="hero-content">
+                <h1>Role Manager</h1>
+                <p>The ultimate Discord role management solution. Simplify role assignments, create persistence, and automate role operations with our powerful bot.</p>
+                <div class="btn-container">
+                    <a href="#features" class="btn"><i class="fas fa-list"></i> Explore Features</a>
+                    <a href="#commands" class="btn btn-primary"><i class="fas fa-terminal"></i> View Commands</a>
+                    <a href="https://discord.com/oauth2/authorize?client_id=1352791729698377858" class="btn btn-accent" target="_blank"><i class="fas fa-plus-circle"></i> Add to Discord</a>
+                </div>
+            </div>
+            <div class="hero-icon">
+                <i class="fas fa-users-cog"></i>
+            </div>
+        </div>
+    </section>
+
+    <!-- Privacy Banner -->
+    <section class="privacy-banner">
+        <div class="container">
+            <div class="privacy-content">
+                <h2><i class="fas fa-shield-alt"></i> Your Data Privacy Is Our Priority</h2>
+                <p>At Utility Managers, we take data privacy seriously. Role Manager only stores essential role configuration and never collects, shares, or sells your personal information. All data is automatically deleted when you remove the bot from your server.</p>
+                <div class="privacy-badges">
+                    <span class="privacy-badge"><i class="fas fa-lock"></i> No Personal Data Collection</span>
+                    <span class="privacy-badge"><i class="fas fa-trash-alt"></i> Data Auto-Deletion</span>
+                    <span class="privacy-badge"><i class="fas fa-user-shield"></i> Privacy-First Development</span>
+                    <span class="privacy-badge"><i class="fas fa-ban"></i> No Third-Party Sharing</span>
+                </div>
+                <a href="privacy.html" class="btn btn-light" style="margin-top: 25px;"><i class="fas fa-file-alt"></i> Read Our Privacy Policy</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features-section" id="features">
+        <div class="container">
+            <div class="section-header">
+                <h2>Powerful Role Management</h2>
+                <p>Streamline your Discord server's role system with these powerful features</p>
+            </div>
+            <div class="features-container">
+                <div class="features-content">
+                    <h3>Auto Roles on Join</h3>
+                    <p>Automatically assign roles to new members when they join your server. Set up multiple auto roles to instantly give new members the permissions they need.</p>
+                    <p>Perfect for welcome roles, verification tiers, or basic permission sets that all new members should receive upon joining your community.</p>
+                    <div class="btn-container">
+                        <a href="#auto-role" class="btn btn-primary"><i class="fas fa-user-plus"></i> View Commands</a>
+                        <a href="#examples" class="btn"><i class="fas fa-book"></i> Usage Guide</a>
+                    </div>
+                </div>
+                <div class="features-icon">
+                    <i class="fas fa-user-plus"></i>
+                </div>
+            </div>
+            <div class="features-container">
+                <div class="features-icon">
+                    <i class="fas fa-history"></i>
+                </div>
+                <div class="features-content">
+                    <h3>Role Persistence</h3>
+                    <p>Make roles permanent for your members, even if they leave and rejoin. Role Manager remembers which roles users had and automatically reassigns them when they return to your server.</p>
+                    <p>This prevents role loss during temporary absences and provides consistent user experiences across your Discord community.</p>
+                    <div class="btn-container">
+                        <a href="#role-persistence" class="btn btn-primary"><i class="fas fa-history"></i> View Commands</a>
+                        <a href="#examples" class="btn"><i class="fas fa-book"></i> Usage Guide</a>
+                    </div>
+                </div>
+            </div>
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-random"></i>
+                    </div>
+                    <h3>Role Combiner</h3>
+                    <p>Create conditional role combinations that automatically add or remove roles based on other role assignments. Define rules like "if user has role X, give them role Y" or "if user gets role A, remove role B".</p>
+                    <div class="btn-container">
+                        <a href="#role-combiner" class="btn btn-primary"><i class="fas fa-random"></i> View Commands</a>
+                    </div>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-sync-alt"></i>
+                    </div>
+                    <h3>Role Sync</h3>
+                    <p>Synchronize roles between different Discord servers where Role Manager is installed. Keep role assignments consistent across your Discord network or partner servers.</p>
+                    <div class="btn-container">
+                        <a href="#role-sync" class="btn btn-primary"><i class="fas fa-sync-alt"></i> View Commands</a>
+                    </div>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-ban"></i>
+                    </div>
+                    <h3>Blocked Roles</h3>
+                    <p>Prevent specific roles from being assigned to users or groups. Create role exclusion rules to maintain proper role hierarchy and prevent permission conflicts.</p>
+                    <div class="btn-container">
+                        <a href="#blocked-roles" class="btn btn-primary"><i class="fas fa-ban"></i> View Commands</a>
+                    </div>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-users-cog"></i>
+                    </div>
+                    <h3>Mass Role Assignment</h3>
+                    <p>Assign roles to multiple users at once. Target all server members or specific groups based on existing roles, activity, join date, and more.</p>
+                    <div class="btn-container">
+                        <a href="#mass-roles" class="btn btn-primary"><i class="fas fa-users-cog"></i> View Commands</a>
+                    </div>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-lock"></i>
+                    </div>
+                    <h3>Access Control</h3>
+                    <p>Control which roles can use Role Manager commands. Restrict sensitive role operations to trusted administrators while allowing moderators to handle routine tasks.</p>
+                    <div class="btn-container">
+                        <a href="#access-control" class="btn btn-primary"><i class="fas fa-key"></i> View Commands</a>
+                    </div>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3>Secure Role System</h3>
+                    <p>Role Manager includes built-in safeguards to prevent accidental role changes or permission escalations. Protect your server's role hierarchy with advanced security features.</p>
+                    <div class="btn-container">
+                        <a href="https://discord.gg/Wc3tTz5UzW" class="btn btn-primary" target="_blank"><i class="fas fa-headset"></i> Get Support</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Commands Section -->
+    <section class="commands-section" id="commands">
+        <div class="container">
+            <div class="section-header">
+                <h2>Command Reference</h2>
+                <p>Easy-to-use commands for managing roles in your Discord server</p>
+            </div>
+            <div class="commands-container">
+                <div class="commands-header">
+                    <h3>Role Manager Commands</h3>
+                    <p>All commands use Discord's slash command system for intuitive control</p>
+                </div>
+                <div class="commands-tabs">
+                    <button class="tab-btn active" data-tab="auto-role">Auto Role</button>
+                    <button class="tab-btn" data-tab="role-persistence">Role Persistence</button>
+                    <button class="tab-btn" data-tab="role-combiner">Role Combiner</button>
+                    <button class="tab-btn" data-tab="role-sync">Role Sync</button>
+                    <button class="tab-btn" data-tab="blocked-roles">Blocked Roles</button>
+                    <button class="tab-btn" data-tab="mass-roles">Mass Roles</button>
+                    <button class="tab-btn" data-tab="access-control">Access Control</button>
+                </div>
+
+                <!-- Auto Role Tab -->
+                <div class="tab-content active" id="auto-role-content">
+                    <div class="command-group">
+                        <h4><i class="fas fa-user-plus"></i> Auto Role Commands</h4>
+                        <div class="command-list">
+                            <div class="command-item">
+                                <div class="command-name">/autorole-add @role</div>
+                                <div class="command-desc">Add an auto-assigned role to new members</div>
+                            </div>
+                            <div class="command-item">
+                                <div class="command-name">/autorole-remove @role</div>
+                                <div class="command-desc">Remove a role from auto assignment</div>
+                            </div>
+                            <div class="command-item">
+                                <div class="command-name">/autorole-list</div>
+                                <div class="command-desc">List all auto roles</div>
+                            </div>
+                            <div class="command-item">
+                                <div class="command-name">/autorole-delay @role minutes:10</div>
+                                <div class="command-desc">Set a delay before role is assigned to new members</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Role Persistence Tab -->
+                <div class="tab-content" id="role-persistence-content">
+                    <div class="command-group">
+                        <h4><i class="fas fa-history"></i> Role Persistence Commands</h4>
+                        <div class="command-list">
+                            <div class="command-item">
+                                <div class="command-name">/rolepersist-add @role</div>
+                                <div class="command-desc">Make roles permanent for users</div>
+                            </div>
+                            <div class="command-item">
+                                <div class="command-name">/rolepersist-remove @role</div>
+                                <div class="command-desc">Remove protected role status</div>
+                            </div>
+                            <div class="command-item">
+                                <div class="command-name">/rolepersist-list</div>
+                                <div class="command-desc">Show roles that persist when members rejoin</div>
+                            </div>
+                            <div class="command-item">
+                                <div class="command-name">/rolepersist-status @user</div>
+                                <div class="command-desc">Check which persistent roles a user has</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Role Combiner Tab -->
+                <div class="tab-content" id="role-combiner-content">
+                    <div class="command-group">
+                        <h4><i class="fas fa-random"></i> Role Combiner Commands</h4>
+                        <div class="command-list">
+                            <div class="command-item">
+                                <div class="command-name">/rolecombiner-add @triggerRole @targetRole action:"add"</div>
+                                <div class="command-desc">Create a rule to add targetRole when triggerRole is assigned</div>
+                            </div>
+                            <div class="command-item">
+                                <div class="command-name">/rolecombiner-add @triggerRole @targetRole action:"remove"</div>
+                                <div class="command-desc">Create a rule to remove targetRole when triggerRole is assigned</div>
+                            </div>
+                            <div class="command-item">
+                                <div class="command-name">/rolecombiner-remove @triggerRole @targetRole</div>
+                                <div class="command-desc">Remove a role combination rule</div>
+                            </div>
+                            <div class="command-item">
+                                <div class="command-name">/rolecombiner-list</div>
+                                <div class="command-desc">List all role combination rules</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Role Sync Tab -->
+                <div class="tab-content" id="role-sync-content">
+                    <div class="command-group">
+                        <h4><i class="fas fa-sync-alt"></i> Role Sync Commands</h4>
+                        <div class="command-list">
+                            <div class="command-item">
+                                <div class="command-name">/rolesync-add @localRole serverId:"123456789" remoteRoleId:"987654321"</div>
+                                <div class="command-desc">Sync roles between servers</div>
+                            </div>
+                            <div class="command-item">
+                                <div class="command-name">/rolesync-remove @localRole serverId:"123456789"</div>
+                                <div class="command-desc">Remove role sync</div>
+                            </div>
+                            <div class="command-item">
+                                <div class="command-name">/rolesync-list</div>
+                                <div class="command-desc">List all role syncs</div>
+                            </div>
+                            <div class="command-item">
+                                <div class="command-name">/rolesync-status</div>
+                                <div class="command-desc">View sync status and last sync time</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Blocked Roles Tab -->
+                <div class="tab-content" id="blocked-roles-content">
+                    <div class="command-group">
+                        <h4><i class="fas fa-ban"></i> Blocked Roles Commands</h4>
+                        <div class="command-list">
+                            <div class="command-item">
+                                <div class="command-name">/blockrole-add @role</div>
+                                <div class="command-desc">Block a role from being assigned</div>
+                            </div>
+                            <div class="command-item">
+                                <div class="command-name">/blockrole-remove @role</div>
+                                <div class="command-desc">Remove a role from blocked list</div>
+                            </div>
+                            <div class="command-item">
+                                <div class="command-name">/blockrole-list</div>
+                                <div class="command-desc">List blocked roles</div>
+                            </div>
+                            <div class="command-item">
+                                <div class="command-name">/blockrole-exception @role @allowedRole</div>
+                                <div class="command-desc">Add exception for a blocked role</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Mass Roles Tab -->
+                <div class="tab-content" id="mass-roles-content">
+                    <div class="command-group">
+                        <h4><i class="fas fa-users-cog"></i> Mass Roles Commands</h4>
+                        <div class="command-list">
+                            <div class="command-item">
+                                <div class="command-name">/add-role @roleToAdd</div>
+                                <div class="command-desc">Add a role to all members</div>
+                            </div>
+                            <div class="command-item">
+                                <div class="command-name">/add-role @roleToAdd @filterRole</div>
+                                <div class="command-desc">Add a role to members with filterRole</div>
+                            </div>
+                            <div class="command-item">
+                                <div class="command-name">/remove-role @roleToRemove</div>
+                                <div class="command-desc">Remove a role from multiple members</div>
+                            </div>
+                            <div class="command-item">
+                                <div class="command-name">/swap-roles @oldRole @newRole</div>
+                                <div class="command-desc">Replace one role with another</div>
+                            </div>
+                            <div class="command-item">
+                                <div class="command-name">/role-cancel</div>
+                                <div class="command-desc">Cancel ongoing role operations</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Access Control Tab -->
+                <div class="tab-content" id="access-control-content">
+                    <div class="command-group">
+                        <h4><i class="fas fa-lock"></i> Access Control Commands</h4>
+                        <div class="command-list">
+                            <div class="command-item">
+                                <div class="command-name">/access-grant @role command:"command-name"</div>
+                                <div class="command-desc">Grant command access to a role</div>
+                            </div>
+                            <div class="command-item">
+                                <div class="command-name">/access-revoke @role command:"command-name"</div>
+                                <div class="command-desc">Revoke command access</div>
+                            </div>
+                            <div class="command-item">
+                                <div class="command-name">/access-list</div>
+                                <div class="command-desc">List command access permissions</div>
+                            </div>
+                            <div class="command-item">
+                                <div class="command-name">/access-reset</div>
+                                <div class="command-desc">Reset access settings to default</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Examples Section -->
+    <section class="examples-section" id="examples">
+        <div class="container">
+            <div class="section-header">
+                <h2>Usage Examples</h2>
+                <p>See how Role Manager can help organize your Discord server</p>
+            </div>
+            <div class="examples-grid">
+                <div class="example-card">
+                    <div class="example-icon">
+                        <i class="fas fa-user-check"></i>
+                    </div>
+                    <div class="example-content">
+                        <h3>Setting Up Verification Tiers</h3>
+                        <ul class="example-steps">
+                            <li>Create a "New Member" role with limited permissions</li>
+                            <li>Set it as an auto role with <code>/autorole-add @New Member</code></li>
+                            <li>Create a "Verified" role with standard permissions</li>
+                            <li>When members verify, give them the Verified role</li>
+                            <li>Use <code>/rolecombiner-add @Verified @New Member action:"remove"</code> to automatically remove New Member role when Verified is assigned</li>
+                        </ul>
+                        <div class="btn-container">
+                            <a href="#auto-role" class="btn btn-primary"><i class="fas fa-user-plus"></i> View Auto Role Commands</a>
+                            <a href="#role-combiner" class="btn"><i class="fas fa-random"></i> View Role Combiner</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="example-card">
+                    <div class="example-icon">
+                        <i class="fas fa-sync-alt"></i>
+                    </div>
+                    <div class="example-content">
+                        <h3>Cross-Server Role Synchronization</h3>
+                        <ul class="example-steps">
+                            <li>Add Role Manager to both your main and secondary servers</li>
+                            <li>Create matching roles in each server (e.g., "Supporter")</li>
+                            <li>Use <code>/rolesync-add @Supporter serverId:"123456789" remoteRoleId:"987654321"</code> to link the roles between servers</li>
+                            <li>Members who receive the role in one server will automatically get it in the other</li>
+                            <li>Perfect for multi-server communities or partner networks</li>
+                        </ul>
+                        <div class="btn-container">
+                            <a href="#role-sync" class="btn btn-primary"><i class="fas fa-sync-alt"></i> View Role Sync Commands</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="example-card">
+                    <div class="example-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <div class="example-content">
+                        <h3>Role Management During Events</h3>
+                        <ul class="example-steps">
+                            <li>Create an "Event Participant" role for a special server event</li>
+                            <li>During event signup, assign this role to interested members</li>
+                            <li>Use <code>/rolepersist-add @Event Participant</code> to make it persistent</li>
+                            <li>After the event, use <code>/remove-role @Event Participant</code></li>
+                            <li>For returning events, previous participants will automatically get their roles back</li>
+                        </ul>
+                        <div class="btn-container">
+                            <a href="#role-persistence" class="btn btn-primary"><i class="fas fa-history"></i> View Persistence Commands</a>
+                            <a href="#mass-roles" class="btn"><i class="fas fa-users-cog"></i> View Mass Role Commands</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="testimonials-section">
+        <div class="container">
+            <div class="section-header">
+                <h2>What Server Admins Say</h2>
+                <p>Hear from Discord communities already using Role Manager</p>
+            </div>
+            
+            <div class="testimonials-grid">
+                <div class="testimonial-card">
+                    <div class="testimonial-stars">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <div class="testimonial-content">
+                        "Role Manager has completely transformed how we handle roles in our gaming community. The role persistence feature is invaluable - no more lost roles when members rejoin. This bot has saved me countless hours of manual role management."
+                    </div>
+                    <div class="testimonial-author">
+                        <div class="testimonial-avatar">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <div class="testimonial-info">
+                            <h4>Alex M.</h4>
+                            <p>Gaming Community Owner (20K+ members)</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="testimonial-card">
+                    <div class="testimonial-stars">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <div class="testimonial-content">
+                        "The role sync feature is a game-changer for our multi-server community. Members' roles stay perfectly synchronized across our main and regional servers. Setup was extremely simple, and the support team was fantastic when I had questions."
+                    </div>
+                    <div class="testimonial-author">
+                        <div class="testimonial-avatar">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <div class="testimonial-info">
+                            <h4>Sarah J.</h4>
+                            <p>Community Network Administrator</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="testimonial-card">
+                    <div class="testimonial-stars">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star-half-alt"></i>
+                    </div>
+                    <div class="testimonial-content">
+                        "Role Combiner is perfect for our tiered membership system. When someone upgrades their membership, their roles automatically adjust. It's reliable, intuitive, and has eliminated manual errors. Our moderation team loves how easy it is to use."
+                    </div>
+                    <div class="testimonial-author">
+                        <div class="testimonial-avatar">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <div class="testimonial-info">
+                            <h4>Miguel R.</h4>
+                            <p>Membership Community Moderator</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="container">
+            <div class="cta-content">
+                <h2>Simplify Role Management Today</h2>
+                <p>Add Role Manager to your Discord server and experience the easiest way to manage roles.</p>
+                <div class="btn-container">
+                    <a href="https://discord.com/oauth2/authorize?client_id=1352791729698377858" class="btn" target="_blank"><i class="fas fa-plus-circle"></i> Add to Discord</a>
+                    <a href="https://discord.gg/Wc3tTz5UzW" class="btn btn-accent" target="_blank"><i class="fas fa-headset"></i> Join Support Server</a>
+                    <a href="#features" class="btn"><i class="fas fa-arrow-up"></i> View Features</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-container">
+                <div class="footer-col">
+                    <h4>Utility Managers</h4>
+                    <p>A collection of powerful Discord bots designed to make server management easier and more efficient.</p>
+                    <div class="social-links">
+                        <a href="https://discord.gg/Wc3tTz5UzW" target="_blank"><i class="fab fa-discord"></i></a>
+                        <a href="https://twitter.com/UtilityManagers" target="_blank"><i class="fab fa-twitter"></i></a>
+                        <a href="https://github.com/UtilityManagers" target="_blank"><i class="fab fa-github"></i></a>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <h4>Our Bots</h4>
+                    <ul class="footer-links">
+                        <li><a href="security-manager.html"><i class="fas fa-angle-right"></i> Security Manager</a></li>
+                        <li><a href="role-manager.html"><i class="fas fa-angle-right"></i> Role Manager</a></li>
+                        <li><a href="dust-manager.html"><i class="fas fa-angle-right"></i> Dust Manager</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Legal</h4>
+                    <ul class="footer-links">
+                        <li><a href="terms.html"><i class="fas fa-angle-right"></i> Terms of Service</a></li>
+                        <li><a href="privacy.html"><i class="fas fa-angle-right"></i> Privacy Policy</a></li>
+                        <li><a href="data-security.html"><i class="fas fa-angle-right"></i> Data Security</a></li>
+                        <li><a href="compliance.html"><i class="fas fa-angle-right"></i> Compliance</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Support</h4>
+                    <ul class="footer-links">
+                        <li><a href="https://discord.gg/Wc3tTz5UzW" target="_blank"><i class="fas fa-angle-right"></i> Support Server</a></li>
+                        <li><a href="https://docs.utilitymanagers.com" target="_blank"><i class="fas fa-angle-right"></i> Documentation</a></li>
+                        <li><a href="faq.html"><i class="fas fa-angle-right"></i> FAQ</a></li>
+                        <li><a href="contact.html"><i class="fas fa-angle-right"></i> Contact Us</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; <script>document.write(new Date().getFullYear())</script> Utility Managers Bots. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Back to Top Button -->
+    <a href="#" class="back-to-top">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+
+    <!-- Quick Access Menu -->
+    <div class="quick-access">
+        <div class="quick-menu-toggle">
+            <i class="fas fa-plus"></i>
+        </div>
+        <div class="quick-menu">
+            <a href="index.html" class="quick-menu-item">
+                <i class="fas fa-home"></i> Home
+            </a>
+            <a href="security-manager.html" class="quick-menu-item">
+                <i class="fas fa-shield-alt"></i> Security Manager
+            </a>
+            <a href="dust-manager.html" class="quick-menu-item">
+                <i class="fas fa-broom"></i> Dust Manager
+            </a>
+            <a href="https://discord.gg/Wc3tTz5UzW" class="quick-menu-item" target="_blank">
+                <i class="fas fa-headset"></i> Support
+            </a>
+        </div>
+    </div>
+
+    <script>
+        // Mobile menu toggle
+        const mobileMenu = document.querySelector('.mobile-menu');
+        const navLinks = document.querySelector('.nav-links');
+        
+        mobileMenu.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+        });
+        
+        // Navbar scroll effect
+        window.addEventListener('scroll', () => {
+            const navbar = document.querySelector('.navbar');
+            const backToTop = document.querySelector('.back-to-top');
+            
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+                backToTop.classList.add('active');
+            } else {
+                navbar.classList.remove('scrolled');
+                backToTop.classList.remove('active');
+            }
+        });
+        
+        // Smooth scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                if (this.getAttribute('href') !== "#") {
+                    e.preventDefault();
+                    
+                    document.querySelector(this.getAttribute('href')).scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+        
+        // Tab functionality
+        const tabBtns = document.querySelectorAll('.tab-btn');
+        const tabContents = document.querySelectorAll('.tab-content');
+        
+        tabBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const tabId = btn.getAttribute('data-tab');
+                
+                // Remove active class from all buttons and contents
+                tabBtns.forEach(b => b.classList.remove('active'));
+                tabContents.forEach(c => c.classList.remove('active'));
+                
+                // Add active class to clicked button and corresponding content
+                btn.classList.add('active');
+                document.getElementById(`${tabId}-content`).classList.add('active');
+            });
+        });
+        
+        // Mobile dropdown toggle
+        if (window.innerWidth < 992) {
+            const dropdowns = document.querySelectorAll('.dropdown');
+            
+            dropdowns.forEach(dropdown => {
+                const link = dropdown.querySelector('a');
+                
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    dropdown.classList.toggle('active');
+                });
+            });
+        }
+
+        // Quick Access Menu
+        const quickMenuToggle = document.querySelector('.quick-menu-toggle');
+        const quickMenu = document.querySelector('.quick-menu');
+        
+        quickMenuToggle.addEventListener('click', () => {
+            quickMenu.classList.toggle('active');
+            quickMenuToggle.classList.toggle('active');
+        });
+    </script>
+</body>
+</html>
